@@ -6,6 +6,9 @@
 
 ## 📚 Documentation Structure
 
+### Implementation Plan
+- **[终极集成实施方案](../reports/终极集成实施方案：x402 + FHE Gateway (EVM).md)** - Complete integration implementation plan (类似旧项目的实施方案文档)
+
 ### Architecture
 - `architecture/` - System architecture and design documents
 
@@ -26,9 +29,10 @@
 
 ## 🚀 Quick Start
 
-1. Read [Architecture Overview](architecture/README.md)
-2. Follow [EVM Integration Guide](integration-evm/README.md)
-3. Check [FHE Integration Plan](fhe/reports/fhe-integration-plan.md)
+1. **Start Here**: Read [终极集成实施方案](reports/终极集成实施方案：x402 + FHE Gateway (EVM).md) for complete overview
+2. Read [Architecture Overview](architecture/README.md)
+3. Follow [EVM Integration Guide](integration-evm/README.md)
+4. Check [FHE Integration Plan](fhe/reports/fhe-integration-plan.md)
 
 ---
 
