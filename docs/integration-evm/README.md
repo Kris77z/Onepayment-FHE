@@ -22,19 +22,23 @@ Choose your EVM network:
 - **Base** (Mainnet): Production deployment
 - **Polygon** (Mainnet): Alternative production network
 
-### 2. x402 Facilitator Setup
+### 2. x402 Integration
 
-Choose a facilitator:
-- **PayAI**: `https://facilitator.payai.network`
-- **Coinbase CDP**: `https://api.cdp.coinbase.com/x402`
+- **[x402 Setup Guide](./x402-setup.md)** - Complete x402 protocol guide
+- **[x402 Client Guide](./x402-client-guide.md)** - Client integration
+- **[x402 Server Guide](./x402-server-guide.md)** - Server integration
+
+**Facilitator Options:**
+- **PayAI**: `https://facilitator.payai.network` - [Documentation](https://docs.payai.network/x402/clients/introduction)
+- **Coinbase CDP**: `https://api.cdp.coinbase.com/x402` - [Documentation](https://docs.cdp.coinbase.com/x402/welcome)
 
 ### 3. FHEVM Contract Deployment
 
-See [Contract Deployment Guide](./contract-deployment.md)
+See [Contract Deployment Guide](./contract-deployment.md) (to be created)
 
 ### 4. Frontend Integration
 
-See [Frontend Integration Guide](./frontend-integration.md)
+See [Frontend Integration Guide](./frontend-integration.md) (to be created)
 
 ---
 
