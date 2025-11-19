@@ -2,6 +2,7 @@
 node_modules/
 .pnp
 .pnp.js
+.npm-cache/
 
 # Testing
 coverage/
@@ -49,6 +50,7 @@ Thumbs.db
 # Hardhat
 cache/
 artifacts/
+.artifacts/
 
 # Foundry
 forge-cache/
