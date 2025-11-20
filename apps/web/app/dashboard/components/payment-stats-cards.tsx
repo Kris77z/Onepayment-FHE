@@ -3,6 +3,12 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Wallet, Lock, Zap } from "lucide-react";
+import React from "react";
+
+// Type workaround for React version conflicts
+const ZapIcon = Zap as any;
+const LockIcon = Lock as any;
+const WalletIcon = Wallet as any;
 import { useEffect, useState } from "react";
 import { getTransactionHistory, TransactionRecord } from "@/lib/transaction-history";
 import { formatCurrency } from "@/lib/utils";
@@ -75,7 +81,7 @@ export function PaymentStatsCards() {
       <Card className="@container/card">
         <CardHeader>
           <CardDescription className="flex items-center gap-2">
-            <Zap className="w-4 h-4" />
+            <ZapIcon className="w-4 h-4" />
             x402 Payments
           </CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
@@ -97,7 +103,7 @@ export function PaymentStatsCards() {
       <Card className="@container/card">
         <CardHeader>
           <CardDescription className="flex items-center gap-2">
-            <Lock className="w-4 h-4" />
+            <LockIcon className="w-4 h-4" />
             FHE Payments
           </CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
@@ -119,7 +125,7 @@ export function PaymentStatsCards() {
       <Card className="@container/card">
         <CardHeader>
           <CardDescription className="flex items-center gap-2">
-            <Wallet className="w-4 h-4" />
+            <WalletIcon className="w-4 h-4" />
             Combined Payments
           </CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">

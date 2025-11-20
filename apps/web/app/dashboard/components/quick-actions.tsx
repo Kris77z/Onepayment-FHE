@@ -3,6 +3,13 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Wallet, History, ArrowRight, Zap, Lock } from "lucide-react";
+
+// Type workaround for React version conflicts
+const ZapIcon = Zap as any;
+const WalletIcon = Wallet as any;
+const HistoryIcon = History as any;
+const ArrowRightIcon = ArrowRight as any;
+const LockIcon = Lock as any;
 import Link from "next/link";
 import { useEVMWallet } from "@/lib/evm-wallet-provider";
 
@@ -13,21 +20,21 @@ export function QuickActions() {
     {
       title: "Make Payment",
       description: "Initiate FHE + x402 payment",
-      icon: <Zap className="w-5 h-5" />,
+      icon: <ZapIcon className="w-5 h-5" />,
       href: "/dashboard/payment",
       variant: "default" as const,
     },
     {
       title: "View Balance",
       description: "Check USDC and FHE balances",
-      icon: <Wallet className="w-5 h-5" />,
+      icon: <WalletIcon className="w-5 h-5" />,
       href: "/dashboard/payment",
       variant: "outline" as const,
     },
     {
       title: "Transaction History",
       description: "View all payment records",
-      icon: <History className="w-5 h-5" />,
+      icon: <HistoryIcon className="w-5 h-5" />,
       href: "/dashboard/history",
       variant: "outline" as const,
     },
@@ -51,7 +58,7 @@ export function QuickActions() {
                 <div className="flex items-center gap-2 w-full">
                   {action.icon}
                   <span className="font-medium">{action.title}</span>
-                  <ArrowRight className="w-4 h-4 ml-auto" />
+                  <ArrowRightIcon className="w-4 h-4 ml-auto" />
                 </div>
                 <span className="text-xs text-muted-foreground text-left">
                   {action.description}

@@ -7,6 +7,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Copy, ExternalLink, Code, Webhook, BarChart3, Settings, Zap, Lock, Loader2 } from "lucide-react";
+
+// Type workaround for React version conflicts
+const ZapIcon = Zap as any;
+const CopyIcon = Copy as any;
+const ExternalLinkIcon = ExternalLink as any;
+const CodeIcon = Code as any;
+const WebhookIcon = Webhook as any;
+const BarChart3Icon = BarChart3 as any;
+const SettingsIcon = Settings as any;
+const LockIcon = Lock as any;
+const Loader2Icon = Loader2 as any;
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { FHEX402Payment } from '@/components/payment/fhe-x402-payment';
@@ -154,7 +165,7 @@ export default function PaymentPage() {
     return (
       <main className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-6 py-10">
         <div className="flex items-center justify-center py-20">
-          <Loader2 className="w-8 h-8 animate-spin text-muted-foreground" />
+                    <Loader2Icon className="w-8 h-8 animate-spin text-muted-foreground" />
         </div>
       </main>
     );
@@ -172,23 +183,23 @@ export default function PaymentPage() {
       <Tabs defaultValue="integration" className="w-full">
         <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="integration">
-            <Code className="w-4 h-4 mr-2" />
+            <CodeIcon className="w-4 h-4 mr-2" />
             Integration
           </TabsTrigger>
           <TabsTrigger value="webhooks">
-            <Webhook className="w-4 h-4 mr-2" />
+            <WebhookIcon className="w-4 h-4 mr-2" />
             Webhooks
           </TabsTrigger>
           <TabsTrigger value="analytics">
-            <BarChart3 className="w-4 h-4 mr-2" />
+            <BarChart3Icon className="w-4 h-4 mr-2" />
             Analytics
           </TabsTrigger>
           <TabsTrigger value="test">
-            <Zap className="w-4 h-4 mr-2" />
+            <ZapIcon className="w-4 h-4 mr-2" />
             Test Payment
           </TabsTrigger>
           <TabsTrigger value="settings">
-            <Settings className="w-4 h-4 mr-2" />
+            <SettingsIcon className="w-4 h-4 mr-2" />
             Settings
           </TabsTrigger>
         </TabsList>
@@ -213,7 +224,7 @@ export default function PaymentPage() {
                       size="icon"
                       onClick={() => handleCopy(apiBaseUrl, 'API Base URL')}
                     >
-                      <Copy className="w-4 h-4" />
+                      <CopyIcon className="w-4 h-4" />
                     </Button>
                   </div>
                 </div>
@@ -232,7 +243,7 @@ export default function PaymentPage() {
                       onClick={() => handleCopy(merchantInfo?.apiKey || '', 'API Key')}
                       disabled={!merchantInfo?.apiKey}
                     >
-                      <Copy className="w-4 h-4" />
+                      <CopyIcon className="w-4 h-4" />
                     </Button>
                   </div>
                   <p className="text-xs text-muted-foreground">
@@ -270,7 +281,7 @@ const payment = await response.json();
                 <div className="flex gap-2">
                   <Button variant="outline" asChild>
                     <a href="https://docs.payagent.com/api" target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="w-4 h-4 mr-2" />
+                      <ExternalLinkIcon className="w-4 h-4 mr-2" />
                       API Documentation
                     </a>
                   </Button>
@@ -279,7 +290,7 @@ const payment = await response.json();
                     onClick={() => handleCopy(merchantInfo?.apiKey || '', 'API Key')}
                     disabled={!merchantInfo?.apiKey}
                   >
-                    <Copy className="w-4 h-4 mr-2" />
+                    <CopyIcon className="w-4 h-4 mr-2" />
                     Copy API Key
                   </Button>
                 </div>
@@ -358,7 +369,7 @@ payment = gateway.create_payment(
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex items-start gap-3 p-3 rounded-lg border">
-                  <Zap className="w-5 h-5 text-primary mt-0.5" />
+                  <ZapIcon className="w-5 h-5 text-primary mt-0.5" />
                   <div>
                     <h4 className="font-medium text-sm mb-1">Gasless Payments</h4>
                     <p className="text-xs text-muted-foreground">
@@ -367,7 +378,7 @@ payment = gateway.create_payment(
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-3 rounded-lg border">
-                  <Lock className="w-5 h-5 text-primary mt-0.5" />
+                  <LockIcon className="w-5 h-5 text-primary mt-0.5" />
                   <div>
                     <h4 className="font-medium text-sm mb-1">Confidential Payments</h4>
                     <p className="text-xs text-muted-foreground">
@@ -376,7 +387,7 @@ payment = gateway.create_payment(
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-3 rounded-lg border">
-                  <BarChart3 className="w-5 h-5 text-primary mt-0.5" />
+                  <BarChart3Icon className="w-5 h-5 text-primary mt-0.5" />
                   <div>
                     <h4 className="font-medium text-sm mb-1">Real-time Analytics</h4>
                     <p className="text-xs text-muted-foreground">
@@ -385,7 +396,7 @@ payment = gateway.create_payment(
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-3 rounded-lg border">
-                  <Webhook className="w-5 h-5 text-primary mt-0.5" />
+                  <WebhookIcon className="w-5 h-5 text-primary mt-0.5" />
                   <div>
                     <h4 className="font-medium text-sm mb-1">Webhook Events</h4>
                     <p className="text-xs text-muted-foreground">
@@ -417,7 +428,7 @@ payment = gateway.create_payment(
                     placeholder="https://your-domain.com/webhook"
                   />
                   <Button onClick={handleSaveWebhook} disabled={saving}>
-                    {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Save'}
+                    {saving ? <Loader2Icon className="w-4 h-4 animate-spin" /> : 'Save'}
                   </Button>
                 </div>
                 <p className="text-xs text-muted-foreground">
@@ -575,7 +586,7 @@ app.post('/webhook', (req, res) => {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Zap className="w-4 h-4 text-primary" />
+                    <ZapIcon className="w-4 h-4 text-primary" />
                     <span className="text-sm">x402 Gasless Payments</span>
                   </div>
                   <div className="flex items-center gap-4">
@@ -592,7 +603,7 @@ app.post('/webhook', (req, res) => {
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Lock className="w-4 h-4 text-primary" />
+                    <LockIcon className="w-4 h-4 text-primary" />
                     <span className="text-sm">FHE Confidential Payments</span>
                   </div>
                   <div className="flex items-center gap-4">
@@ -718,7 +729,7 @@ app.post('/webhook', (req, res) => {
               <Button onClick={handleSaveSettings} disabled={saving}>
                 {saving ? (
                   <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    <Loader2Icon className="w-4 h-4 mr-2 animate-spin" />
                     Saving...
                   </>
                 ) : (

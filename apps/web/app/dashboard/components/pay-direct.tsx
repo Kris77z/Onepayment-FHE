@@ -70,14 +70,14 @@ export function PayDirect() {
       const quote = await createQuote({
         amount: value,
         currency: 'USDC',
-        network: config.network
       })
 
       // 创建支付会话
       const session = await createSession({
-        quoteId: quote.id,
-        orderId: orderId,
-        returnUrl: `${window.location.origin}/dashboard/trade`
+        quoteId: quote.quoteId,
+        amount: value,
+        currency: 'USDC',
+        memo: orderId ? `Order: ${orderId}` : undefined,
       })
 
       // 构建并签名支付请求
@@ -86,7 +86,7 @@ export function PayDirect() {
         connection,
         wallet,
         {
-          sessionId: session.id,
+          sessionId: session.sessionId,
           merchantAddress: fConfig.payTo,
           nonce: session.nonce,
           expiresAt: session.expiresAt,
@@ -97,26 +97,18 @@ export function PayDirect() {
       )
 
       // 提交支付请求到后端
-      const settleResult = await settlePayment(session.id, paymentRequest)
+      const transactionSignature = await settlePayment(session.sessionId, paymentRequest)
       
-      if (settleResult.status === 'settled') {
-        toast({
-          title: 'Payment Successful',
-          description: `Transaction: ${settleResult.transactionSignature?.slice(0, 8)}...`,
-          variant: 'default'
-        })
+      if (transactionSignature) {
+        toast.success('Payment Successful', `Transaction: ${transactionSignature.slice(0, 8)}...`)
         setLastStatus('success')
-        setLastTx(settleResult.transactionSignature || '')
+        setLastTx(transactionSignature)
       } else {
-        throw new Error(`Payment failed: ${settleResult.status}`)
+        throw new Error('Payment failed: No transaction signature received')
       }
     }catch(e:any){
       const errorMsg = e?.message || 'Operation failed'
-      toast({
-        title: 'Payment Failed',
-        description: errorMsg,
-        variant: 'destructive'
-      })
+      toast.error('Payment Failed', errorMsg)
       setLastStatus(`error: ${errorMsg}`)
     }finally{
       setLoading(false)

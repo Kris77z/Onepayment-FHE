@@ -4,6 +4,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, ExternalLink } from "lucide-react";
+
+// Type workaround for React version conflicts
+const ArrowRightIcon = ArrowRight as any;
+const ExternalLinkIcon = ExternalLink as any;
 import { useEffect, useState } from "react";
 import { getTransactionHistory, TransactionRecord } from "@/lib/transaction-history";
 import { useEVMWallet } from "@/lib/evm-wallet-provider";
@@ -99,7 +103,7 @@ export function RecentTransactions() {
           <Link href="/dashboard/history">
             <Button variant="ghost" size="sm">
               View All
-              <ArrowRight className="w-4 h-4 ml-2" />
+              <ArrowRightIcon className="w-4 h-4 ml-2" />
             </Button>
           </Link>
         </div>
@@ -150,7 +154,7 @@ export function RecentTransactions() {
                     onClick={() => window.open(txUrl, '_blank')}
                     className="ml-2 flex-shrink-0"
                   >
-                    <ExternalLink className="w-4 h-4" />
+                    <ExternalLinkIcon className="w-4 h-4" />
                   </Button>
                 )}
               </div>

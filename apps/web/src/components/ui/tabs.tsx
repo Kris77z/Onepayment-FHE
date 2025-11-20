@@ -5,26 +5,23 @@ import * as TabsPrimitive from "@radix-ui/react-tabs"
 
 import { cn } from "@/lib/utils"
 
-function Tabs({
+const Tabs = (({
   className,
-  children,
   ...props
-}: React.ComponentProps<typeof TabsPrimitive.Root>) {
+}: React.ComponentProps<typeof TabsPrimitive.Root>) => {
   return (
     <TabsPrimitive.Root
       data-slot="tabs"
       className={cn("flex flex-col gap-2", className)}
       {...props}
-    >
-      {children}
-    </TabsPrimitive.Root>
+    />
   )
-}
+}) as any
 
-function TabsList({
+const TabsList = (({
   className,
   ...props
-}: React.ComponentProps<typeof TabsPrimitive.List>) {
+}: React.ComponentProps<typeof TabsPrimitive.List>) => {
   return (
     <TabsPrimitive.List
       data-slot="tabs-list"
@@ -35,12 +32,12 @@ function TabsList({
       {...props}
     />
   )
-}
+}) as any
 
-function TabsTrigger({
+const TabsTrigger = (({
   className,
   ...props
-}: React.ComponentProps<typeof TabsPrimitive.Trigger>) {
+}: React.ComponentProps<typeof TabsPrimitive.Trigger>) => {
   return (
     <TabsPrimitive.Trigger
       data-slot="tabs-trigger"
@@ -51,12 +48,12 @@ function TabsTrigger({
       {...props}
     />
   )
-}
+}) as any
 
-function TabsContent({
+const TabsContent = (({
   className,
   ...props
-}: React.ComponentProps<typeof TabsPrimitive.Content>) {
+}: React.ComponentProps<typeof TabsPrimitive.Content>) => {
   return (
     <TabsPrimitive.Content
       data-slot="tabs-content"
@@ -64,6 +61,6 @@ function TabsContent({
       {...props}
     />
   )
-}
+}) as any
 
 export { Tabs, TabsList, TabsTrigger, TabsContent }

@@ -10,6 +10,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { IconChevronLeft, IconChevronRight, IconExternalLink, IconDownload } from "@tabler/icons-react"
+
+// Type workaround for React version conflicts
+const IconChevronLeftComp = IconChevronLeft as any;
+const IconChevronRightComp = IconChevronRight as any;
+const IconExternalLinkComp = IconExternalLink as any;
+const IconDownloadComp = IconDownload as any;
 import { formatCurrency } from "@/lib/utils"
 
 type PaymentRow = {
@@ -129,7 +135,7 @@ export default function PaymentsTable(){
             <Label htmlFor="search" className="sr-only">Search</Label>
             <Input id="search" placeholder="Search txHash / sender" value={search} onChange={(e)=>setSearch(e.target.value)} onKeyDown={(e)=>{ if(e.key==='Enter'){ setPage(1); fetchList() }}} />
           </div>
-          <Select value={status} onValueChange={(v)=>{ setStatus(v); setPage(1) }}>
+          <Select value={status} onValueChange={(v: string)=>{ setStatus(v); setPage(1) }}>
             <SelectTrigger className="w-40">
               <SelectValue />
             </SelectTrigger>
@@ -140,7 +146,7 @@ export default function PaymentsTable(){
               <SelectItem value="failed">Failed</SelectItem>
             </SelectContent>
           </Select>
-          <Select value={String(pageSize)} onValueChange={(v)=>{ setPageSize(Number(v)); setPage(1) }}>
+          <Select value={String(pageSize)} onValueChange={(v: string)=>{ setPageSize(Number(v)); setPage(1) }}>
             <SelectTrigger className="w-28">
               <SelectValue />
             </SelectTrigger>
@@ -152,7 +158,7 @@ export default function PaymentsTable(){
           </Select>
           <Button variant="outline" onClick={()=>{ setPage(1); fetchList() }}>Refresh</Button>
           <Button onClick={handleExport} disabled={exporting}>
-            <IconDownload className="h-4 w-4 mr-2" />{exporting ? 'Exporting...' : 'Export CSV'}
+            <IconDownloadComp className="h-4 w-4 mr-2" />{exporting ? 'Exporting...' : 'Export CSV'}
           </Button>
         </div>
 
@@ -205,7 +211,7 @@ export default function PaymentsTable(){
                           window.open(url, '_blank') 
                         } else if(it.txHash){ window.open(it.txHash, '_blank') }
                       }}>
-                        <IconExternalLink className="h-4 w-4" />
+                        <IconExternalLinkComp className="h-4 w-4" />
                       </Button>
                     </TableCell>
                   </TableRow>
@@ -224,11 +230,11 @@ export default function PaymentsTable(){
           <div className="text-xs text-muted-foreground">Total {resp?.total||0} items</div>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="icon" disabled={page<=1 || loading} onClick={()=> setPage(p=> Math.max(1, p-1))}>
-              <IconChevronLeft className="h-4 w-4" />
+              <IconChevronLeftComp className="h-4 w-4" />
             </Button>
             <div className="text-sm">{page} / {totalPages}</div>
             <Button variant="outline" size="icon" disabled={page>=totalPages || loading} onClick={()=> setPage(p=> Math.min(totalPages, p+1))}>
-              <IconChevronRight className="h-4 w-4" />
+              <IconChevronRightComp className="h-4 w-4" />
             </Button>
           </div>
         </div>
