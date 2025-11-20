@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-// 独立导入各个模块，确保解耦
+// Import modules independently to ensure decoupling
 import { useEVMWallet } from '@/lib/evm-wallet-provider';
 import { getContractAddresses, getNetworkConfig, getFHEVMConfig } from '@/lib/config';
 import {
@@ -28,11 +28,11 @@ import {
   createFHEVMPublicClient,
 } from '@/lib/fhevm-contract';
 
-// 共享状态：加密值（用于跨组件测试）
+// Shared state: encrypted value (for cross-component testing)
 let sharedEncryptedValue: string | null = null;
 
 /**
- * 独立测试组件：钱包连接测试
+ * Independent test component: Wallet connection test
  */
 function WalletConnectionTest() {
   const { address, isConnected, connect, disconnect, publicClient, walletClient, chainId, switchToBaseSepolia, isCorrectNetwork } = useEVMWallet();
@@ -43,12 +43,12 @@ function WalletConnectionTest() {
     setIsSwitching(true);
     try {
       await switchToBaseSepolia();
-      toast.success('网络切换成功', {
-        description: '已切换到 Base Sepolia',
+      toast.success('Network switched successfully', {
+        description: 'Switched to Base Sepolia',
       });
     } catch (error) {
-      const errorMsg = error instanceof Error ? error.message : '未知错误';
-      toast.error('网络切换失败', {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      toast.error('Network switch failed', {
         description: errorMsg,
       });
     } finally {
@@ -60,39 +60,39 @@ function WalletConnectionTest() {
     try {
       const results: string[] = [];
       
-      // 测试 1: 钱包连接状态
-      results.push(`✅ 钱包连接状态: ${isConnected ? '已连接' : '未连接'}`);
-      results.push(`✅ 钱包地址: ${address || 'N/A'}`);
+      // Test 1: Wallet connection status
+      results.push(`✅ Wallet connection status: ${isConnected ? 'Connected' : 'Not connected'}`);
+      results.push(`✅ Wallet address: ${address || 'N/A'}`);
       
-      // 测试 2: 网络检查
-      results.push(`\n📡 网络信息:`);
-      results.push(`   当前 Chain ID: ${chainId || 'N/A'}`);
-      results.push(`   目标 Chain ID: 84532 (Base Sepolia)`);
-      results.push(`   网络状态: ${isCorrectNetwork ? '✅ 正确' : '❌ 不正确'}`);
+      // Test 2: Network check
+      results.push(`\n📡 Network information:`);
+      results.push(`   Current Chain ID: ${chainId || 'N/A'}`);
+      results.push(`   Target Chain ID: 84532 (Base Sepolia)`);
+      results.push(`   Network status: ${isCorrectNetwork ? '✅ Correct' : '❌ Incorrect'}`);
       
-      // 测试 3: Public Client
+      // Test 3: Public Client
       if (publicClient) {
         const network = await publicClient.getChainId();
-        results.push(`\n✅ Public Client 可用，Chain ID: ${network}`);
+        results.push(`\n✅ Public Client available, Chain ID: ${network}`);
       } else {
-        results.push(`\n❌ Public Client 不可用`);
+        results.push(`\n❌ Public Client not available`);
       }
       
-      // 测试 4: Wallet Client
+      // Test 4: Wallet Client
       if (walletClient) {
-        results.push(`✅ Wallet Client 可用`);
+        results.push(`✅ Wallet Client available`);
       } else {
-        results.push(`⚠️  Wallet Client 不可用（需要连接钱包）`);
+        results.push(`⚠️  Wallet Client not available (wallet connection required)`);
       }
       
       setTestResult(results.join('\n'));
-      toast.success('测试完成', {
-        description: '钱包连接测试完成',
+      toast.success('Test completed', {
+        description: 'Wallet connection test completed',
       });
     } catch (error) {
-      const errorMsg = error instanceof Error ? error.message : '未知错误';
-      setTestResult(`❌ 测试失败: ${errorMsg}`);
-      toast.error('测试失败', {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      setTestResult(`❌ Test failed: ${errorMsg}`);
+      toast.error('Test failed', {
         description: errorMsg,
       });
     }
@@ -101,43 +101,43 @@ function WalletConnectionTest() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>1. 钱包连接测试</CardTitle>
-        <CardDescription>测试 EVM 钱包连接功能</CardDescription>
+        <CardTitle>1. Wallet Connection Test</CardTitle>
+        <CardDescription>Test EVM wallet connection functionality</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex gap-2 flex-wrap">
           {!isConnected ? (
-            <Button onClick={connect}>连接钱包</Button>
+            <Button onClick={connect}>Connect Wallet</Button>
           ) : (
-            <Button onClick={disconnect} variant="outline">断开连接</Button>
+            <Button onClick={disconnect} variant="outline">Disconnect</Button>
           )}
-          <Button onClick={handleTest} variant="secondary">运行测试</Button>
+          <Button onClick={handleTest} variant="secondary">Run Test</Button>
           {isConnected && !isCorrectNetwork && (
             <Button onClick={handleSwitchNetwork} disabled={isSwitching} variant="destructive">
-              {isSwitching ? '切换中...' : '切换到 Base Sepolia'}
+              {isSwitching ? 'Switching...' : 'Switch to Base Sepolia'}
             </Button>
           )}
         </div>
         <div className="space-y-2">
-          <p className="text-sm font-medium">状态:</p>
+          <p className="text-sm font-medium">Status:</p>
           <p className="text-sm text-muted-foreground">
-            {isConnected ? `✅ 已连接: ${address?.slice(0, 6)}...${address?.slice(-4)}` : '❌ 未连接'}
+            {isConnected ? `✅ Connected: ${address?.slice(0, 6)}...${address?.slice(-4)}` : '❌ Not connected'}
           </p>
           {isConnected && (
             <div className="mt-2 space-y-1">
               <p className="text-sm text-muted-foreground">
-                当前网络: Chain ID {chainId || 'N/A'}
+                Current network: Chain ID {chainId || 'N/A'}
               </p>
               {!isCorrectNetwork && (
                 <div className="rounded-lg bg-yellow-500/10 border border-yellow-500/20 p-3">
                   <p className="text-sm text-yellow-600 dark:text-yellow-400">
-                    ⚠️ 当前网络不正确，请切换到 Base Sepolia (Chain ID: 84532)
+                    ⚠️ Current network is incorrect, please switch to Base Sepolia (Chain ID: 84532)
                   </p>
                 </div>
               )}
               {isCorrectNetwork && (
                 <p className="text-sm text-green-600 dark:text-green-400">
-                  ✅ 网络正确 (Base Sepolia)
+                  ✅ Network correct (Base Sepolia)
                 </p>
               )}
             </div>
@@ -154,7 +154,7 @@ function WalletConnectionTest() {
 }
 
 /**
- * 独立测试组件：配置测试
+ * Independent test component: Configuration test
  */
 function ConfigTest() {
   const [testResult, setTestResult] = useState<string>('');
@@ -163,33 +163,33 @@ function ConfigTest() {
     try {
       const results: string[] = [];
       
-      // 测试配置读取
+      // Test configuration reading
       const contracts = getContractAddresses();
       const network = getNetworkConfig();
       const fhevm = getFHEVMConfig();
       
-      results.push('=== 合约地址配置 ===');
+      results.push('=== Contract Address Configuration ===');
       results.push(`FHE Payment Gateway: ${contracts.fhePaymentGateway}`);
       results.push(`FHE Counter: ${contracts.fheCounter}`);
       results.push(`USDC: ${contracts.usdc}`);
       
-      results.push('\n=== 网络配置 ===');
+      results.push('\n=== Network Configuration ===');
       results.push(`RPC URL: ${network.rpcUrl}`);
       results.push(`Chain ID: ${network.chainId}`);
       results.push(`Network Name: ${network.name}`);
       
-      results.push('\n=== FHEVM 配置 ===');
+      results.push('\n=== FHEVM Configuration ===');
       results.push(`Relayer URL: ${fhevm.relayerUrl}`);
       results.push(`Gateway URL: ${fhevm.gatewayUrl}`);
       
       setTestResult(results.join('\n'));
-      toast.success('测试完成', {
-        description: '配置读取测试完成',
+      toast.success('Test completed', {
+        description: 'Configuration reading test completed',
       });
     } catch (error) {
-      const errorMsg = error instanceof Error ? error.message : '未知错误';
-      setTestResult(`❌ 测试失败: ${errorMsg}`);
-      toast.error('测试失败', {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      setTestResult(`❌ Test failed: ${errorMsg}`);
+      toast.error('Test failed', {
         description: errorMsg,
       });
     }
@@ -198,11 +198,11 @@ function ConfigTest() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>2. 配置测试</CardTitle>
-        <CardDescription>测试配置模块是否正常工作</CardDescription>
+        <CardTitle>2. Configuration Test</CardTitle>
+        <CardDescription>Test if configuration module works correctly</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <Button onClick={handleTest}>运行测试</Button>
+        <Button onClick={handleTest}>Run Test</Button>
         {testResult && (
           <div className="rounded-lg bg-muted p-4">
             <p className="text-sm font-mono whitespace-pre-wrap">{testResult}</p>
@@ -214,7 +214,7 @@ function ConfigTest() {
 }
 
 /**
- * 独立测试组件：FHEVM Relayer SDK 测试
+ * Independent test component: FHEVM Relayer SDK test
  */
 function FHEVMRelayerTest() {
   const { address, isConnected } = useEVMWallet();
@@ -233,16 +233,16 @@ function FHEVMRelayerTest() {
     setTestResult('');
     try {
       const healthy = await checkFHEVMHealth();
-      setTestResult(`健康检查结果: ${healthy ? '✅ 正常' : '❌ 不可用'}`);
+      setTestResult(`Health check result: ${healthy ? '✅ Healthy' : '❌ Unavailable'}`);
       if (healthy) {
-        toast.success('服务正常');
+        toast.success('Service healthy');
       } else {
-        toast.error('服务不可用');
+        toast.error('Service unavailable');
       }
     } catch (error) {
-      const errorMsg = error instanceof Error ? error.message : '未知错误';
-      setTestResult(`❌ 健康检查失败: ${errorMsg}`);
-      toast.error('健康检查失败', {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      setTestResult(`❌ Health check failed: ${errorMsg}`);
+      toast.error('Health check failed', {
         description: errorMsg,
       });
     } finally {
@@ -252,8 +252,8 @@ function FHEVMRelayerTest() {
 
   const handleEncrypt = async () => {
     if (!isConnected || !address) {
-      toast.error('钱包未连接', {
-        description: '请先连接钱包',
+      toast.error('Wallet not connected', {
+        description: 'Please connect your wallet first',
       });
       return;
     }
@@ -262,7 +262,7 @@ function FHEVMRelayerTest() {
     const validation = validateAmount(amountNum);
 
     if (!validation.isValid) {
-      toast.error('验证失败', {
+      toast.error('Validation failed', {
         description: validation.error,
       });
       return;
@@ -276,15 +276,15 @@ function FHEVMRelayerTest() {
     try {
       const encrypted = await encryptAmountFHEVM(amountNum, contractAddress, address);
       setEncryptedValue(encrypted.encryptedValue);
-      sharedEncryptedValue = encrypted.encryptedValue; // 保存到共享状态
-      setTestResult(`✅ 加密成功\n原始金额: ${amountNum}\n加密值: ${encrypted.encryptedValue}\nProof: ${encrypted.inputProof || 'N/A'}`);
-      toast.success('加密成功', {
-        description: `金额 ${amountNum} 已加密`,
+      sharedEncryptedValue = encrypted.encryptedValue; // Save to shared state
+      setTestResult(`✅ Encryption successful\nOriginal amount: ${amountNum}\nEncrypted value: ${encrypted.encryptedValue}\nProof: ${encrypted.inputProof || 'N/A'}`);
+      toast.success('Encryption successful', {
+        description: `Amount ${amountNum} encrypted`,
       });
     } catch (error) {
-      const errorMsg = error instanceof FHEVMError ? error.message : (error instanceof Error ? error.message : '未知错误');
-      setTestResult(`❌ 加密失败: ${errorMsg}`);
-      toast.error('加密失败', {
+      const errorMsg = error instanceof FHEVMError ? error.message : (error instanceof Error ? error.message : 'Unknown error');
+      setTestResult(`❌ Encryption failed: ${errorMsg}`);
+      toast.error('Encryption failed', {
         description: errorMsg,
       });
     } finally {
@@ -295,8 +295,8 @@ function FHEVMRelayerTest() {
   const handleDecrypt = async () => {
     const valueToDecrypt = encryptedValue || sharedEncryptedValue;
     if (!valueToDecrypt) {
-      toast.error('没有密文', {
-        description: '请先加密一个金额',
+      toast.error('No ciphertext', {
+        description: 'Please encrypt an amount first',
       });
       return;
     }
@@ -307,14 +307,14 @@ function FHEVMRelayerTest() {
     try {
       const decrypted = await decryptAmountFHEVM(valueToDecrypt, contractAddress);
       setDecryptedAmount(decrypted);
-      setTestResult(`✅ 解密成功\n加密值: ${valueToDecrypt}\n解密金额: ${decrypted}\n原始金额: ${amount}\n匹配: ${parseInt(amount, 10) === decrypted ? '✅' : '❌'}`);
-      toast.success('解密成功', {
-        description: `解密金额: ${decrypted}`,
+      setTestResult(`✅ Decryption successful\nEncrypted value: ${valueToDecrypt}\nDecrypted amount: ${decrypted}\nOriginal amount: ${amount}\nMatch: ${parseInt(amount, 10) === decrypted ? '✅' : '❌'}`);
+      toast.success('Decryption successful', {
+        description: `Decrypted amount: ${decrypted}`,
       });
     } catch (error) {
-      const errorMsg = error instanceof FHEVMError ? error.message : (error instanceof Error ? error.message : '未知错误');
-      setTestResult(`❌ 解密失败: ${errorMsg}`);
-      toast.error('解密失败', {
+      const errorMsg = error instanceof FHEVMError ? error.message : (error instanceof Error ? error.message : 'Unknown error');
+      setTestResult(`❌ Decryption failed: ${errorMsg}`);
+      toast.error('Decryption failed', {
         description: errorMsg,
       });
     } finally {
@@ -324,14 +324,14 @@ function FHEVMRelayerTest() {
 
   const handleGetPublicKey = async () => {
     try {
-      setTestResult('获取公钥中...');
+      setTestResult('Fetching public key...');
       const publicKey = await getFHEVMPublicKey(contractAddress);
-      setTestResult(`✅ 公钥获取成功\n${publicKey}`);
-      toast.success('公钥获取成功');
+      setTestResult(`✅ Public key fetched successfully\n${publicKey}`);
+      toast.success('Public key fetched successfully');
     } catch (error) {
-      const errorMsg = error instanceof Error ? error.message : '未知错误';
-      setTestResult(`❌ 获取公钥失败: ${errorMsg}`);
-      toast.error('获取公钥失败', {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      setTestResult(`❌ Failed to fetch public key: ${errorMsg}`);
+      toast.error('Failed to fetch public key', {
         description: errorMsg,
       });
     }
@@ -340,13 +340,13 @@ function FHEVMRelayerTest() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>3. FHEVM Relayer SDK 测试</CardTitle>
-        <CardDescription>测试 FHEVM Relayer SDK 的加密/解密功能</CardDescription>
+        <CardTitle>3. FHEVM Relayer SDK Test</CardTitle>
+        <CardDescription>Test FHEVM Relayer SDK encryption/decryption functionality</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="relayer-amount">
-            金额 (uint32)
+            Amount (uint32)
           </Label>
           <Input
             id="relayer-amount"
@@ -356,21 +356,21 @@ function FHEVMRelayerTest() {
             max="4294967295"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            placeholder="例如: 100"
+            placeholder="e.g., 100"
           />
         </div>
         <div className="flex flex-wrap gap-2">
           <Button onClick={handleHealthCheck} disabled={isHealthChecking}>
-            {isHealthChecking ? '检查中...' : '健康检查'}
+            {isHealthChecking ? 'Checking...' : 'Health Check'}
           </Button>
           <Button onClick={handleGetPublicKey} variant="outline">
-            获取公钥
+            Get Public Key
           </Button>
           <Button onClick={handleEncrypt} disabled={isEncrypting || !isConnected}>
-            {isEncrypting ? '加密中...' : '加密'}
+            {isEncrypting ? 'Encrypting...' : 'Encrypt'}
           </Button>
           <Button onClick={handleDecrypt} disabled={isDecrypting || !encryptedValue}>
-            {isDecrypting ? '解密中...' : '解密'}
+            {isDecrypting ? 'Decrypting...' : 'Decrypt'}
           </Button>
         </div>
         {testResult && (
@@ -380,13 +380,13 @@ function FHEVMRelayerTest() {
         )}
         {encryptedValue && (
           <div className="rounded-lg bg-muted p-4">
-            <p className="text-sm font-medium">加密值:</p>
+            <p className="text-sm font-medium">Encrypted value:</p>
             <p className="text-xs font-mono break-all">{encryptedValue}</p>
           </div>
         )}
         {decryptedAmount !== null && (
           <div className="rounded-lg bg-muted p-4">
-            <p className="text-sm font-medium">解密金额: {decryptedAmount}</p>
+            <p className="text-sm font-medium">Decrypted amount: {decryptedAmount}</p>
           </div>
         )}
       </CardContent>
@@ -395,7 +395,7 @@ function FHEVMRelayerTest() {
 }
 
 /**
- * 独立测试组件：FHEVM 合约交互测试
+ * Independent test component: FHEVM contract interaction test
  */
 function FHEVMContractTest() {
   const { address, isConnected, isCorrectNetwork, switchToBaseSepolia } = useEVMWallet();
@@ -409,19 +409,19 @@ function FHEVMContractTest() {
 
   const contractAddress = getContractAddresses().fhePaymentGateway;
 
-  // 从共享状态获取加密值
+  // Get encrypted value from shared state
   const encryptedValue = sharedEncryptedValue;
 
   const handleSwitchNetwork = async () => {
     setIsSwitching(true);
     try {
       await switchToBaseSepolia();
-      toast.success('网络切换成功', {
-        description: '已切换到 Base Sepolia',
+      toast.success('Network switched successfully', {
+        description: 'Switched to Base Sepolia',
       });
     } catch (error) {
-      const errorMsg = error instanceof Error ? error.message : '未知错误';
-      toast.error('网络切换失败', {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      toast.error('Network switch failed', {
         description: errorMsg,
       });
     } finally {
@@ -431,22 +431,22 @@ function FHEVMContractTest() {
 
   const handleAddPayment = async () => {
     if (!isConnected || !address) {
-      toast.error('钱包未连接', {
-        description: '请先连接钱包',
+      toast.error('Wallet not connected', {
+        description: 'Please connect your wallet first',
       });
       return;
     }
 
     if (!isCorrectNetwork) {
-      toast.error('网络不正确', {
-        description: '请先切换到 Base Sepolia 网络',
+      toast.error('Network incorrect', {
+        description: 'Please switch to Base Sepolia network first',
       });
       return;
     }
 
     if (!encryptedValue) {
-      toast.error('没有加密金额', {
-        description: '请先在 FHEVM Relayer SDK 测试中加密一个金额',
+      toast.error('No encrypted amount', {
+        description: 'Please encrypt an amount in FHEVM Relayer SDK test first',
       });
       return;
     }
@@ -458,14 +458,14 @@ function FHEVMContractTest() {
       const client = createFHEVMWalletClient(address);
       const txHash = await addPayment(client, address, encryptedValue as `0x${string}`);
       
-      setTestResult(`✅ 支付成功\n交易哈希: ${txHash}\n合约地址: ${contractAddress}`);
-      toast.success('支付成功', {
-        description: `交易哈希: ${txHash.slice(0, 10)}...`,
+      setTestResult(`✅ Payment successful\nTransaction hash: ${txHash}\nContract address: ${contractAddress}`);
+      toast.success('Payment successful', {
+        description: `Transaction hash: ${txHash.slice(0, 10)}...`,
       });
     } catch (error) {
-      const errorMsg = error instanceof Error ? error.message : '未知错误';
-      setTestResult(`❌ 支付失败: ${errorMsg}`);
-      toast.error('支付失败', {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      setTestResult(`❌ Payment failed: ${errorMsg}`);
+      toast.error('Payment failed', {
         description: errorMsg,
       });
     } finally {
@@ -475,8 +475,8 @@ function FHEVMContractTest() {
 
   const handleGetBalance = async () => {
     if (!address) {
-      toast.error('钱包未连接', {
-        description: '请先连接钱包',
+      toast.error('Wallet not connected', {
+        description: 'Please connect your wallet first',
       });
       return;
     }
@@ -487,14 +487,14 @@ function FHEVMContractTest() {
     try {
       const balance = await getEncryptedBalance(address);
       setContractBalance(balance);
-      setTestResult(`✅ 余额获取成功\n加密余额: ${balance}\n合约地址: ${contractAddress}`);
-      toast.success('余额获取成功', {
-        description: '已获取加密余额',
+      setTestResult(`✅ Balance fetched successfully\nEncrypted balance: ${balance}\nContract address: ${contractAddress}`);
+      toast.success('Balance fetched successfully', {
+        description: 'Encrypted balance retrieved',
       });
     } catch (error) {
-      const errorMsg = error instanceof Error ? error.message : '未知错误';
-      setTestResult(`❌ 获取余额失败: ${errorMsg}`);
-      toast.error('获取余额失败', {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      setTestResult(`❌ Failed to fetch balance: ${errorMsg}`);
+      toast.error('Failed to fetch balance', {
         description: errorMsg,
       });
     } finally {
@@ -504,8 +504,8 @@ function FHEVMContractTest() {
 
   const handleApplyRate = async () => {
     if (!encryptedValue) {
-      toast.error('没有加密金额', {
-        description: '请先在 FHEVM Relayer SDK 测试中加密一个金额',
+      toast.error('No encrypted amount', {
+        description: 'Please encrypt an amount in FHEVM Relayer SDK test first',
       });
       return;
     }
@@ -516,14 +516,14 @@ function FHEVMContractTest() {
     try {
       const rateNum = parseInt(rate, 10);
       const result = await applyRate(encryptedValue as `0x${string}`, rateNum);
-      setTestResult(`✅ 汇率应用成功\n原始加密值: ${encryptedValue}\n汇率: ${rateNum} (${rateNum / 100}%)\n结果: ${result}`);
-      toast.success('汇率应用成功', {
-        description: `结果: ${result.slice(0, 10)}...`,
+      setTestResult(`✅ Rate applied successfully\nOriginal encrypted value: ${encryptedValue}\nRate: ${rateNum} (${rateNum / 100}%)\nResult: ${result}`);
+      toast.success('Rate applied successfully', {
+        description: `Result: ${result.slice(0, 10)}...`,
       });
     } catch (error) {
-      const errorMsg = error instanceof Error ? error.message : '未知错误';
-      setTestResult(`❌ 汇率应用失败: ${errorMsg}`);
-      toast.error('汇率应用失败', {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      setTestResult(`❌ Failed to apply rate: ${errorMsg}`);
+      toast.error('Failed to apply rate', {
         description: errorMsg,
       });
     } finally {
@@ -533,16 +533,16 @@ function FHEVMContractTest() {
 
   const handleTestPublicClient = async () => {
     try {
-      setTestResult('测试 Public Client...');
+      setTestResult('Testing Public Client...');
       const publicClient = createFHEVMPublicClient();
       const chainId = await publicClient.getChainId();
       const blockNumber = await publicClient.getBlockNumber();
-      setTestResult(`✅ Public Client 测试成功\nChain ID: ${chainId}\n当前区块: ${blockNumber.toString()}\n合约地址: ${contractAddress}`);
-      toast.success('Public Client 测试成功');
+      setTestResult(`✅ Public Client test successful\nChain ID: ${chainId}\nCurrent block: ${blockNumber.toString()}\nContract address: ${contractAddress}`);
+      toast.success('Public Client test successful');
     } catch (error) {
-      const errorMsg = error instanceof Error ? error.message : '未知错误';
-      setTestResult(`❌ Public Client 测试失败: ${errorMsg}`);
-      toast.error('Public Client 测试失败', {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      setTestResult(`❌ Public Client test failed: ${errorMsg}`);
+      toast.error('Public Client test failed', {
         description: errorMsg,
       });
     }
@@ -551,12 +551,12 @@ function FHEVMContractTest() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>4. FHEVM 合约交互测试</CardTitle>
-        <CardDescription>测试与 FHEPaymentGateway 合约的交互</CardDescription>
+        <CardTitle>4. FHEVM Contract Interaction Test</CardTitle>
+        <CardDescription>Test interaction with FHEPaymentGateway contract</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="rate">汇率 (basis points, 例如 15000 = 150%)</Label>
+          <Label htmlFor="rate">Rate (basis points, e.g., 15000 = 150%)</Label>
           <Input
             id="rate"
             type="number"
@@ -564,42 +564,42 @@ function FHEVMContractTest() {
             min="0"
             value={rate}
             onChange={(e) => setRate(e.target.value)}
-            placeholder="例如: 15000"
+            placeholder="e.g., 15000"
           />
         </div>
         {!isCorrectNetwork && isConnected && (
           <div className="rounded-lg bg-yellow-500/10 border border-yellow-500/20 p-3">
             <p className="text-sm text-yellow-600 dark:text-yellow-400 mb-2">
-              ⚠️ 当前网络不正确，请切换到 Base Sepolia (Chain ID: 84532) 才能进行合约交互
+              ⚠️ Current network is incorrect, please switch to Base Sepolia (Chain ID: 84532) to interact with contracts
             </p>
             <Button onClick={handleSwitchNetwork} disabled={isSwitching} variant="destructive" size="sm">
-              {isSwitching ? '切换中...' : '切换到 Base Sepolia'}
+              {isSwitching ? 'Switching...' : 'Switch to Base Sepolia'}
             </Button>
           </div>
         )}
         <div className="flex flex-wrap gap-2">
           <Button onClick={handleTestPublicClient} variant="outline">
-            测试 Public Client
+            Test Public Client
           </Button>
           <Button
             onClick={handleAddPayment}
             disabled={isAddingPayment || !isConnected || !encryptedValue || !isCorrectNetwork}
           >
-            {isAddingPayment ? '支付中...' : '添加支付'}
+            {isAddingPayment ? 'Processing...' : 'Add Payment'}
           </Button>
           <Button
             onClick={handleGetBalance}
             disabled={isGettingBalance || !isConnected}
             variant="outline"
           >
-            {isGettingBalance ? '获取中...' : '获取余额'}
+            {isGettingBalance ? 'Fetching...' : 'Get Balance'}
           </Button>
           <Button
             onClick={handleApplyRate}
             disabled={isApplyingRate || !encryptedValue}
             variant="outline"
           >
-            {isApplyingRate ? '计算中...' : '应用汇率'}
+            {isApplyingRate ? 'Calculating...' : 'Apply Rate'}
           </Button>
         </div>
         {testResult && (
@@ -609,14 +609,14 @@ function FHEVMContractTest() {
         )}
         {contractBalance && (
           <div className="rounded-lg bg-muted p-4">
-            <p className="text-sm font-medium">合约中的加密余额:</p>
+            <p className="text-sm font-medium">Encrypted balance in contract:</p>
             <p className="text-xs font-mono break-all">{contractBalance}</p>
           </div>
         )}
         <div className="text-xs text-muted-foreground">
-          <p>提示: 需要先在 "FHEVM Relayer SDK 测试" 中加密一个金额，然后才能进行合约交互测试</p>
+          <p>Note: You need to encrypt an amount in "FHEVM Relayer SDK Test" first before testing contract interactions</p>
           {encryptedValue && (
-            <p className="mt-2 text-green-600">✅ 已检测到加密值，可以进行合约交互</p>
+            <p className="mt-2 text-green-600">✅ Encrypted value detected, contract interaction available</p>
           )}
         </div>
       </CardContent>
@@ -625,24 +625,24 @@ function FHEVMContractTest() {
 }
 
 /**
- * 主测试页面组件
+ * Main test page component
  */
 export default function FHEVMTestPage() {
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-6 py-10">
       <section className="space-y-2">
-        <h1 className="text-3xl font-semibold text-foreground">FHEVM 功能独立测试</h1>
+        <h1 className="text-3xl font-semibold text-foreground">FHEVM Feature Independent Testing</h1>
         <p className="text-sm text-muted-foreground">
-          每个功能模块都可以独立测试，确保解耦和可测试性
+          Each feature module can be tested independently to ensure decoupling and testability
         </p>
       </section>
 
       <Tabs defaultValue="wallet" className="w-full">
         <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="wallet">钱包</TabsTrigger>
-          <TabsTrigger value="config">配置</TabsTrigger>
+          <TabsTrigger value="wallet">Wallet</TabsTrigger>
+          <TabsTrigger value="config">Config</TabsTrigger>
           <TabsTrigger value="relayer">Relayer SDK</TabsTrigger>
-          <TabsTrigger value="contract">合约交互</TabsTrigger>
+          <TabsTrigger value="contract">Contract</TabsTrigger>
         </TabsList>
 
         <TabsContent value="wallet" className="space-y-4">
@@ -664,18 +664,18 @@ export default function FHEVMTestPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>测试说明</CardTitle>
+          <CardTitle>Test Instructions</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-sm text-muted-foreground">
-          <p><strong>测试顺序建议：</strong></p>
+          <p><strong>Recommended test order:</strong></p>
           <ol className="list-decimal list-inside space-y-1 ml-4">
-            <li>先测试"钱包"模块，确保钱包连接正常</li>
-            <li>测试"配置"模块，确认配置读取正确</li>
-            <li>测试"Relayer SDK"模块，进行加密/解密操作</li>
-            <li>测试"合约交互"模块，使用加密值进行合约调用</li>
+            <li>Test "Wallet" module first to ensure wallet connection works</li>
+            <li>Test "Config" module to verify configuration reading is correct</li>
+            <li>Test "Relayer SDK" module to perform encryption/decryption operations</li>
+            <li>Test "Contract" module to use encrypted values for contract calls</li>
           </ol>
           <p className="mt-4">
-            <strong>注意：</strong>每个模块都是独立的，可以单独测试。但某些功能（如合约交互）需要依赖其他模块的输出（如加密值）。
+            <strong>Note:</strong> Each module is independent and can be tested separately. However, some features (like contract interactions) depend on outputs from other modules (like encrypted values).
           </p>
         </CardContent>
       </Card>
