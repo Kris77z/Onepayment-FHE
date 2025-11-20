@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 
 function Tabs({
   className,
+  children,
   ...props
 }: React.ComponentProps<typeof TabsPrimitive.Root>) {
   return (
@@ -14,7 +15,9 @@ function Tabs({
       data-slot="tabs"
       className={cn("flex flex-col gap-2", className)}
       {...props}
-    />
+    >
+      {children}
+    </TabsPrimitive.Root>
   )
 }
 
