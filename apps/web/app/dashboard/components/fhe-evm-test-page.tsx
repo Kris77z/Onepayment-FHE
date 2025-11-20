@@ -345,7 +345,9 @@ function FHEVMRelayerTest() {
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="relayer-amount">金额 (uint32)</Label>
+          <Label htmlFor="relayer-amount">
+            金额 (uint32)
+          </Label>
           <Input
             id="relayer-amount"
             type="number"
