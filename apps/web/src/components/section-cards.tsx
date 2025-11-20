@@ -28,8 +28,12 @@ export function SectionCards() {
         
         // Get dashboard overview statistics from backend API
         try {
-          const resp = await getJson<OverviewResp>(`/me/dashboard/overview?range=30d`)
-          if(!cancelled) setData(resp)
+          const resp = await getJson<{ success: boolean; data: OverviewResp }>(`/me/dashboard/overview?range=30d`)
+          if(!cancelled && resp?.success && resp?.data) {
+            setData(resp.data)
+          } else if (!cancelled) {
+            setError('Invalid response format from server')
+          }
         } catch (e) {
           // If backend endpoint is not available, show error
           console.log('Dashboard overview endpoint not available')
@@ -78,7 +82,7 @@ export function SectionCards() {
         </CardHeader>
         <CardFooter className="flex-col items-start gap-1.5 text-sm">
           <div className="line-clamp-1 flex gap-2 font-medium">
-            {data ? `${data.period.from} ~ ${data.period.to}` : 'Last 30 days'}
+            {data?.period ? `${data.period.from} ~ ${data.period.to}` : 'Last 30 days'}
           </div>
           <div className="text-xs text-muted-foreground">
             Powered by x402 + FHE on EVM networks
@@ -100,7 +104,7 @@ export function SectionCards() {
         </CardHeader>
         <CardFooter className="flex-col items-start gap-1.5 text-sm">
           <div className="line-clamp-1 flex gap-2 font-medium">
-            {data ? `${data.period.from} ~ ${data.period.to}` : 'Last 30 days'}
+            {data?.period ? `${data.period.from} ~ ${data.period.to}` : 'Last 30 days'}
           </div>
         </CardFooter>
       </Card>

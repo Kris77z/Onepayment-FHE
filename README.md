@@ -189,33 +189,6 @@ x402-fhe-gateway-evm/
 
 ---
 
-## 🔌 API Integration
-
-### Create Payment
-
-```typescript
-const response = await fetch('https://gateway.payagent.com/api/v1/payments', {
-  method: 'POST',
-  headers: {
-    'Authorization': 'Bearer YOUR_API_KEY',
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    amount: '10.00',
-    currency: 'USDC',
-    network: 'base-sepolia',
-    useFHE: true, // Enable confidential payments
-    metadata: {
-      orderId: 'ORDER_123',
-      description: 'Product purchase'
-    }
-  })
-});
-
-const payment = await response.json();
-// Redirect user to payment.url
-```
-
 ### Webhook Events
 
 - `payment.created` - When a payment is created
@@ -253,15 +226,6 @@ npx hardhat compile
 
 ---
 
-## 📚 Documentation
-
-- [Integration Guide](./docs/integration-evm/README.md) - EVM integration documentation
-- [x402 Setup](./docs/integration-evm/x402-setup.md) - x402 protocol setup guide
-- [Implementation Plan](./docs/reports/终极集成实施方案：x402%20+%20FHE%20Gateway%20(EVM).md) - Complete implementation plan
-- [Progress Reports](./docs/progress/README.md) - Development progress tracking
-
----
-
 ## 🔐 Security
 
 - **API Keys**: Never expose API keys in client-side code
@@ -271,47 +235,7 @@ npx hardhat compile
 
 ---
 
-## 🌐 Supported Networks
-
-- **Base Sepolia** (Testnet) - Recommended for development
-- **Base** (Mainnet) - Production network
-- **Polygon** - Alternative EVM network
-
----
-
-## 🤝 Contributing
-
-This is an independent project focused on EVM-based x402 + FHE integration. For contributions:
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
----
-
-## 📄 License
-
-[Add your license here]
-
----
-
 ## 🙏 Acknowledgments
 
 - **x402 Protocol**: PayAI Network and Coinbase CDP for Facilitator services
 - **FHE Technology**: Zama.ai for FHEVM and Relayer SDK
-- **EVM Networks**: Base and Polygon for network infrastructure
-
----
-
-## 📞 Support
-
-For issues and questions:
-- GitHub Issues: [Create an issue]
-- Documentation: See `docs/` directory
-- Email: [Your contact email]
-
----
-
-**Last Updated**: 2024-12-19  
-**Project Status**: 🚧 Active Development
