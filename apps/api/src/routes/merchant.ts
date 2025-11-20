@@ -5,9 +5,9 @@ const router = Router();
 
 // Mock merchant data (replace with database in production)
 let merchantInfo: any = {
-  apiKey: process.env.MERCHANT_API_KEY || 'pk_live_xxxxxxxxxxxxxxxxxxxxxxxx',
+  apiKey: process.env.MERCHANT_API_KEY || null,
   webhookUrl: '',
-  webhookSecret: process.env.WEBHOOK_SECRET || 'whsec_xxxxxxxxxxxxxxxxxxxxxxxx',
+  webhookSecret: process.env.WEBHOOK_SECRET || null,
   defaultNetwork: 'base-sepolia',
   defaultCurrency: 'USDC',
   defaultPaymentMode: 'fhe',
