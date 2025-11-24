@@ -191,6 +191,32 @@ export function watchPaymentAdded(
 }
 
 /**
+ * Get ERC20 token balance
+ * 
+ * @param tokenAddress - ERC20 token contract address
+ * @param userAddress - User address
+ * @returns Token balance (as bigint)
+ */
+export async function getERC20Balance(
+  tokenAddress: Address,
+  userAddress: Address
+): Promise<bigint> {
+  const publicClient = createFHEVMPublicClient();
+  
+  // Import ERC20 ABI
+  const { ERC20_ABI } = await import('./erc20-abi');
+  
+  const result = await publicClient.readContract({
+    address: tokenAddress,
+    abi: ERC20_ABI,
+    functionName: 'balanceOf',
+    args: [userAddress],
+  });
+
+  return result as bigint;
+}
+
+/**
  * Get contract address
  */
 export function getFHEPaymentGatewayAddress(): Address {

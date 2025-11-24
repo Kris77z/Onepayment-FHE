@@ -1,35 +1,36 @@
 "use client";
 
+import * as React from "react"
 import { Users, Zap, Settings, Lock, Wallet, Shield } from "lucide-react";
 
 const features = [
   {
-    icon: <Lock className="w-6 h-6" />,
+    icon: React.createElement(Lock as any, { className: "w-6 h-6" }) as any,
     title: "FHE Confidential Payments",
     description: "Powered by Zama FHEVM, enabling fully homomorphic encryption for confidential payment amounts. Transaction amounts remain encrypted throughout the entire payment process, ensuring complete privacy."
   },
   {
-    icon: <Wallet className="w-6 h-6" />,
+    icon: React.createElement(Wallet as any, { className: "w-6 h-6" }) as any,
     title: "Gasless x402 Payments",
     description: "Powered by EVM x402 protocol, enabling gasless transactions and agent-driven micro-payments. Users pay zero gas fees while maintaining full control."
   },
   {
-    icon: <Zap className="w-6 h-6" />,
+    icon: React.createElement(Zap as any, { className: "w-6 h-6" }) as any,
     title: "Real-time Processing",
     description: "Fast transaction processing on EVM networks with real-time status tracking. Payments are confirmed within seconds thanks to x402 facilitator sponsorship."
   },
   {
-    icon: <Shield className="w-6 h-6" />,
+    icon: React.createElement(Shield as any, { className: "w-6 h-6" }) as any,
     title: "Homomorphic Computation",
     description: "Perform computations on encrypted data without decryption. FHE enables secure aggregation, rate conversion, and balance calculations while maintaining complete privacy."
   },
   {
-    icon: <Users className="w-6 h-6" />,
+    icon: React.createElement(Users as any, { className: "w-6 h-6" }) as any,
     title: "Dedicated Support",
     description: "Dedicated account manager providing full integration assistance and technical support for FHE and x402 integration."
   },
   {
-    icon: <Settings className="w-6 h-6" />,
+    icon: React.createElement(Settings as any, { className: "w-6 h-6" }) as any,
     title: "Agentic Finance",
     description: "Enable autonomous agent-driven payments with RateAgent for automatic fee payments and FHE Agent for encrypted amount processing."
   }

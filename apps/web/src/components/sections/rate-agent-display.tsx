@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Bot, TrendingUp, CheckCircle, Clock } from "lucide-react";
 import { useState } from "react";
@@ -23,7 +24,7 @@ const agents: AgentStatus[] = [
     status: 'online',
     lastActivity: '2 minutes ago',
     description: 'Intelligent agent that automatically fetches exchange rates and pays fees',
-    icon: <TrendingUp className="w-6 h-6" />,
+    icon: React.createElement(TrendingUp as any, { className: "w-6 h-6" }) as any,
     stats: {
       totalCalls: 1247,
       successRate: '99.8%',
@@ -35,7 +36,7 @@ const agents: AgentStatus[] = [
     status: 'online',
     lastActivity: '5 minutes ago',
     description: 'Processes homomorphic computation and storage of encrypted amounts',
-    icon: <Bot className="w-6 h-6" />,
+    icon: React.createElement(Bot as any, { className: "w-6 h-6" }) as any,
     stats: {
       totalCalls: 892,
       successRate: '100%',
@@ -61,9 +62,9 @@ export default function RateAgentDisplay() {
   const getStatusIcon = (status: AgentStatus['status']) => {
     switch (status) {
       case 'online':
-        return <CheckCircle className="w-4 h-4" />;
+        return React.createElement(CheckCircle as any, { className: "w-4 h-4" }) as any;
       case 'processing':
-        return <Clock className="w-4 h-4" />;
+        return React.createElement(Clock as any, { className: "w-4 h-4" }) as any;
       case 'offline':
         return <div className="w-4 h-4 rounded-full bg-red-500" />;
     }
@@ -154,7 +155,7 @@ export default function RateAgentDisplay() {
                 <div className="space-y-4">
                   <div>
                     <h4 className="font-medium mb-2 flex items-center gap-2">
-                      <TrendingUp className="w-4 h-4" />
+                      {React.createElement(TrendingUp as any, { className: "w-4 h-4" }) as any}
                       RateAgent Features
                     </h4>
                     <p className="text-sm text-muted-foreground">
@@ -210,7 +211,7 @@ export default function RateAgentDisplay() {
                 <div className="space-y-4">
                   <div>
                     <h4 className="font-medium mb-2 flex items-center gap-2">
-                      <Bot className="w-4 h-4" />
+                      {React.createElement(Bot as any, { className: "w-4 h-4" }) as any}
                       FHE Agent Features
                     </h4>
                     <p className="text-sm text-muted-foreground">

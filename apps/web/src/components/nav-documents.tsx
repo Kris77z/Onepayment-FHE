@@ -1,5 +1,6 @@
 "use client"
 
+import * as React from "react"
 import {
   IconDots,
   IconFolder,
@@ -44,7 +45,7 @@ export function NavDocuments({
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild>
               <a href={item.url}>
-                <item.icon />
+                {React.createElement(item.icon as any) as any}
                 <span>{item.name}</span>
               </a>
             </SidebarMenuButton>
@@ -54,7 +55,7 @@ export function NavDocuments({
                   showOnHover
                   className="data-[state=open]:bg-accent rounded-sm"
                 >
-                  <IconDots />
+                  {React.createElement(IconDots as any) as any}
                   <span className="sr-only">More</span>
                 </SidebarMenuAction>
               </DropdownMenuTrigger>
@@ -64,16 +65,16 @@ export function NavDocuments({
                 align={isMobile ? "end" : "start"}
               >
                 <DropdownMenuItem>
-                  <IconFolder />
+                  {React.createElement(IconFolder as any) as any}
                   <span>Open</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <IconShare3 />
+                  {React.createElement(IconShare3 as any) as any}
                   <span>Share</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem variant="destructive">
-                  <IconTrash />
+                  {React.createElement(IconTrash as any) as any}
                   <span>Delete</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -82,7 +83,7 @@ export function NavDocuments({
         ))}
         <SidebarMenuItem>
           <SidebarMenuButton className="text-sidebar-foreground/70">
-            <IconDots className="text-sidebar-foreground/70" />
+            {React.createElement(IconDots as any, { className: "text-sidebar-foreground/70" }) as any}
             <span>More</span>
           </SidebarMenuButton>
         </SidebarMenuItem>

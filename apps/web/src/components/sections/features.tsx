@@ -1,35 +1,36 @@
 "use client";
 
+import * as React from "react"
 import { Shield, Zap, Globe, Lock, Wallet, Users } from "lucide-react";
 
 const features = [
   {
-    icon: <Shield className="w-6 h-6" />,
+    icon: React.createElement(Shield as any, { className: "w-6 h-6" }) as any,
     title: "Enterprise Security",
     description: "Multi-layer security protection with 2FA, whitelist, PIN codes and more to ensure fund safety."
   },
   {
-    icon: <Zap className="w-6 h-6" />,
+    icon: React.createElement(Zap as any, { className: "w-6 h-6" }) as any,
     title: "Real-time Processing",
     description: "Fast transaction processing with real-time status tracking for complete payment transparency."
   },
   {
-    icon: <Globe className="w-6 h-6" />,
+    icon: React.createElement(Globe as any, { className: "w-6 h-6" }) as any,
     title: "Multi-chain Support",
     description: "Support for Ethereum, TRON, BSC and other major blockchain networks for diverse business needs."
   },
   {
-    icon: <Lock className="w-6 h-6" />,
+    icon: React.createElement(Lock as any, { className: "w-6 h-6" }) as any,
     title: "FHE Confidential Payments",
     description: "Powered by Zama FHEVM, enabling fully homomorphic encryption for confidential payment amounts. Transaction amounts remain encrypted throughout the entire payment process, ensuring complete privacy."
   },
   {
-    icon: <Users className="w-6 h-6" />,
+    icon: React.createElement(Users as any, { className: "w-6 h-6" }) as any,
     title: "Dedicated Support",
     description: "Dedicated account manager providing full integration assistance and technical support."
   },
   {
-    icon: <Wallet className="w-6 h-6" />,
+    icon: React.createElement(Wallet as any, { className: "w-6 h-6" }) as any,
     title: "Gasless x402 Payments",
     description: "Powered by EVM x402 protocol, enabling gasless transactions and agent-driven micro-payments. Users pay zero gas fees while maintaining full control."
   }

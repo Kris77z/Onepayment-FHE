@@ -271,6 +271,7 @@ export class X402Client {
 
     // Sign the authorization
     const signature = await walletClient.signTypedData({
+      account: walletClient.account,
       domain,
       types,
       primaryType: 'TransferWithAuthorization',

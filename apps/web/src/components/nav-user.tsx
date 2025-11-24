@@ -1,5 +1,6 @@
 "use client"
 
+import * as React from "react"
 import {
   IconCreditCard,
   IconDotsVertical,
@@ -70,7 +71,7 @@ export function NavUser({
                   {user.email}
                 </span>
               </div>
-              <IconDotsVertical className="ml-auto size-4" />
+              {React.createElement(IconDotsVertical as any, { className: "ml-auto size-4" }) as any}
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -95,7 +96,7 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogout}>
-              <IconLogout />
+              {React.createElement(IconLogout as any) as any}
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>

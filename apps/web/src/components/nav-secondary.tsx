@@ -44,7 +44,7 @@ export function NavSecondary({
                   }
                 }}
               >
-                <item.icon />
+                {React.createElement(item.icon as any) as any}
                 <span>{item.title}</span>
               </SidebarMenuButton>
             </SidebarMenuItem>

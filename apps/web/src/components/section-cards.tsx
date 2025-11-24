@@ -1,3 +1,4 @@
+import * as React from "react"
 import { IconTrendingDown, IconTrendingUp } from "@tabler/icons-react"
 import { useEffect, useState } from "react"
 import { Badge } from "@/components/ui/badge"
@@ -97,7 +98,7 @@ export function SectionCards() {
           </CardTitle>
           <div>
             <Badge variant="outline">
-              {revGrowth !== null && revGrowth >= 0 ? <IconTrendingUp /> : <IconTrendingDown />}
+              {revGrowth !== null && revGrowth >= 0 ? React.createElement(IconTrendingUp as any) as any : React.createElement(IconTrendingDown as any) as any}
               {pct(revGrowth)}
             </Badge>
           </div>
@@ -124,7 +125,7 @@ export function SectionCards() {
           </CardTitle>
           <div>
             <Badge variant="outline">
-              {payersGrowth !== null && payersGrowth >= 0 ? <IconTrendingUp /> : <IconTrendingDown />}
+              {payersGrowth !== null && payersGrowth >= 0 ? React.createElement(IconTrendingUp as any) as any : React.createElement(IconTrendingDown as any) as any}
               {pct(payersGrowth)}
             </Badge>
           </div>

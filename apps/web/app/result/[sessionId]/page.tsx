@@ -4,7 +4,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Card, CardFooter, CardHeader } from '@/components/ui/card';
+import { Card, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { getPaymentStatus, config, retryCommission } from '@/lib/api-client';
 import { formatCurrency } from '@/lib/utils';
 
@@ -37,7 +37,10 @@ export default function ResultPage() {
       </section>
 
       <Card>
-        <CardHeader title="状态" description="每 3 秒自动刷新，可随时点击按钮手动更新。" />
+        <CardHeader>
+          <CardTitle>状态</CardTitle>
+          <CardDescription>每 3 秒自动刷新，可随时点击按钮手动更新。</CardDescription>
+        </CardHeader>
         {statusQuery.isLoading ? (
           <p className="text-sm text-slate-500">加载中…</p>
         ) : statusQuery.isError ? (

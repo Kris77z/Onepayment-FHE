@@ -351,7 +351,7 @@ payment = gateway.create_payment(
 
                 <Button variant="outline" className="w-full" asChild>
                   <a href="https://docs.payagent.com/sdk" target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="w-4 h-4 mr-2" />
+                    <ExternalLinkIcon className="w-4 h-4 mr-2" />
                     View All SDKs
                   </a>
                 </Button>
@@ -450,7 +450,7 @@ payment = gateway.create_payment(
                     onClick={() => handleCopy(merchantInfo?.webhookSecret || '', 'Webhook Secret')}
                     disabled={!merchantInfo?.webhookSecret}
                   >
-                    <Copy className="w-4 h-4" />
+                    <CopyIcon className="w-4 h-4" />
                   </Button>
                 </div>
                 <p className="text-xs text-muted-foreground">

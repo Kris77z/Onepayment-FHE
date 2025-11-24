@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plus, Minus, ChevronDown } from "lucide-react";
@@ -100,7 +101,7 @@ export default function PaymentMethods() {
                       />
                       <span>{selectedBlockchain}</span>
                     </div>
-                    <ChevronDown className={`w-4 h-4 transition-transform ${showBlockchainDropdown ? 'rotate-180' : ''}`} />
+                    {React.createElement(ChevronDown as any, { className: `w-4 h-4 transition-transform ${showBlockchainDropdown ? 'rotate-180' : ''}` }) as any}
                   </Button>
                   
                   {showBlockchainDropdown && (
@@ -324,8 +325,8 @@ export default function PaymentMethods() {
                     <div className="flex items-center justify-between">
                       <CardTitle className="text-xl font-medium">{method.title}</CardTitle>
                       {activeMethod === method.id ? 
-                        <Minus className="w-5 h-5 text-muted-foreground" /> : 
-                        <Plus className="w-5 h-5 text-muted-foreground" />
+                        React.createElement(Minus as any, { className: "w-5 h-5 text-muted-foreground" }) as any : 
+                        React.createElement(Plus as any, { className: "w-5 h-5 text-muted-foreground" }) as any
                       }
                     </div>
                     <p className="text-sm text-muted-foreground">{method.subtitle}</p>

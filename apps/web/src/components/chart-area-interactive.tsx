@@ -3,6 +3,12 @@
 import * as React from "react"
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 
+// Type workaround for React version conflicts
+const AreaChartComp = AreaChart as any;
+const AreaComp = Area as any;
+const CartesianGridComp = CartesianGrid as any;
+const XAxisComp = XAxis as any;
+
 import { useIsMobile } from "@/hooks/use-mobile"
 import {
   Card,
@@ -130,7 +136,7 @@ export function ChartAreaInteractive() {
             config={chartConfig}
             className="h-[250px] w-full min-h-[250px]"
           >
-            <AreaChart data={series}>
+            <AreaChartComp data={series}>
               <defs>
                 <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
                   <stop
@@ -157,14 +163,14 @@ export function ChartAreaInteractive() {
                   />
                 </linearGradient>
               </defs>
-              <CartesianGrid vertical={false} />
-              <XAxis
+              <CartesianGridComp vertical={false} />
+              <XAxisComp
                 dataKey="date"
                 tickLine={false}
                 axisLine={false}
                 tickMargin={8}
                 minTickGap={32}
-                tickFormatter={(value) => {
+                tickFormatter={(value: any) => {
                   const date = new Date(value)
                   return date.toLocaleDateString("en-US", {
                     month: "short",
@@ -176,7 +182,7 @@ export function ChartAreaInteractive() {
                 cursor={false}
                 content={
                   <ChartTooltipContent
-                    labelFormatter={(value) => {
+                    labelFormatter={(value: any) => {
                       return new Date(value).toLocaleDateString("en-US", {
                         month: "short",
                         day: "numeric",
@@ -186,14 +192,14 @@ export function ChartAreaInteractive() {
                   />
                 }
               />
-              <Area
+              <AreaComp
                 dataKey="value"
                 type="natural"
                 fill="url(#fillMobile)"
                 stroke="var(--color-mobile)"
                 stackId="a"
               />
-            </AreaChart>
+            </AreaChartComp>
           </ChartContainer>
         )}
         {error && (

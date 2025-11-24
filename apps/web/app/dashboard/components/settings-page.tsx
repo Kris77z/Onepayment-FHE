@@ -440,7 +440,7 @@ export function SettingsPage() {
                     </div>
                     <Switch 
                       checked={notifications.email}
-                      onCheckedChange={(checked) => handleNotificationChange('email', checked)}
+                      onCheckedChange={(checked: boolean) => handleNotificationChange('email', checked)}
                     />
                   </div>
                   <div className="flex items-center justify-between">
@@ -453,7 +453,7 @@ export function SettingsPage() {
                     </div>
                     <Switch 
                       checked={notifications.push}
-                      onCheckedChange={(checked) => handleNotificationChange('push', checked)}
+                      onCheckedChange={(checked: boolean) => handleNotificationChange('push', checked)}
                     />
                   </div>
                 </div>
@@ -473,7 +473,7 @@ export function SettingsPage() {
                     </div>
                     <Switch 
                       checked={notifications.trading}
-                      onCheckedChange={(checked) => handleNotificationChange('trading', checked)}
+                      onCheckedChange={(checked: boolean) => handleNotificationChange('trading', checked)}
                     />
                   </div>
                   <div className="flex items-center justify-between">
@@ -486,7 +486,7 @@ export function SettingsPage() {
                     </div>
                     <Switch 
                       checked={notifications.security}
-                      onCheckedChange={(checked) => handleNotificationChange('security', checked)}
+                      onCheckedChange={(checked: boolean) => handleNotificationChange('security', checked)}
                     />
                   </div>
                   <div className="flex items-center justify-between">
@@ -499,7 +499,7 @@ export function SettingsPage() {
                     </div>
                     <Switch 
                       checked={notifications.news}
-                      onCheckedChange={(checked) => handleNotificationChange('news', checked)}
+                      onCheckedChange={(checked: boolean) => handleNotificationChange('news', checked)}
                     />
                   </div>
                 </div>
@@ -519,7 +519,7 @@ export function SettingsPage() {
                     </div>
                     <Switch 
                       checked={Boolean(merchant?.preferences?.totp_enabled)}
-                      onCheckedChange={(checked) => {
+                      onCheckedChange={(checked: boolean) => {
                         if (checked && !merchant?.preferences?.totp_enabled) {
                           setup2FA()
                         } else if (!checked && merchant?.preferences?.totp_enabled) {
@@ -592,7 +592,7 @@ export function SettingsPage() {
                         onClick={handleToggleApiVisibility}
                         aria-label={showApiKey ? 'Hide API Key' : 'Show API Key'}
                       >
-                        {showApiKey ? <IconEyeOffComp className="h-4 w-4" /> : <IconEyeCompCompclassName="h-4 w-4" />}
+                         {showApiKey ? <IconEyeOffComp className="h-4 w-4" /> : <IconEyeComp className="h-4 w-4" />}
                       </Button>
                       {/* Copy button moved inside code blocks for snippets; keep API key copy here for convenience */}
                       <Button variant="outline" size="sm" onClick={handleCopyApiKey} className={cn(apiCopyState === 'copied' && 'border-emerald-400 text-emerald-500')}>
@@ -646,7 +646,7 @@ export function SettingsPage() {
                         onClick={revealWebhookSecret}
                         aria-label="Reveal Webhook Secret"
                       >
-                        <IconEyeCompCompclassName="h-4 w-4" />
+                         <IconEyeComp className="h-4 w-4" />
                       </Button>
                       <Button
                         variant="outline"
@@ -694,7 +694,7 @@ export function SettingsPage() {
                     <div className="flex items-center justify-between gap-3">
                       <div className="min-w-56">
                         <div className="text-sm font-medium">Mode</div>
-                        <Select value={genMode} onValueChange={(v)=>setGenMode(v as 'invoice'|'static')}>
+                        <Select value={genMode} onValueChange={(v: string)=>setGenMode(v as 'invoice'|'static')}>
                           <SelectTrigger>
                             <SelectValue />
                           </SelectTrigger>
@@ -732,7 +732,7 @@ export function SettingsPage() {
                   </div>
                   <div className="space-y-3">
                     <div className="text-sm font-medium">Token</div>
-                    <Select value={genToken} onValueChange={(v) => setGenToken(v as 'USDT'|'USDC')}>
+                    <Select value={genToken} onValueChange={(v: string) => setGenToken(v as 'USDT'|'USDC')}>
                       <SelectTrigger>
                         <SelectValue>
                           <div className="flex items-center gap-2">

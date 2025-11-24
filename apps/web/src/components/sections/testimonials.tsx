@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react"
 import { Star } from "lucide-react";
 
 const testimonials = [
@@ -69,7 +70,7 @@ export default function Testimonials() {
               {/* Rating Stars */}
               <div className="flex items-center gap-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                  React.createElement(Star as any, { key: i, className: "w-4 h-4 fill-yellow-400 text-yellow-400" }) as any
                 ))}
               </div>
               

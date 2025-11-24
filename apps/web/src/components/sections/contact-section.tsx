@@ -2,7 +2,10 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import * as React from "react"
+import { ArrowRight, MoveRight } from "lucide-react";
+
+const MoveRightComp = MoveRight as any;
 import { useToast } from "@/hooks/use-toast";
 
 export default function ContactSection() {
@@ -126,7 +129,7 @@ export default function ContactSection() {
                   disabled={isSubmitting || !isFormValid()}
                 >
                   {isSubmitting ? "Sending..." : "Contact OnePay team"}
-                  <ArrowRight className="ml-2 w-4 h-4" />
+                  {React.createElement(ArrowRight as any, { className: "ml-2 w-4 h-4" }) as any}
                 </Button>
               </div>
             </div>

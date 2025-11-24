@@ -44,7 +44,7 @@ export function EVMWalletProvider({ children }: { children: React.ReactNode }) {
       chain: baseSepolia,
       transport: http(networkConfig.rpcUrl),
     });
-    setPublicClient(client);
+    setPublicClient(client as any);
   }, [networkConfig.rpcUrl]);
 
   // Check current chain ID
@@ -54,9 +54,9 @@ export function EVMWalletProvider({ children }: { children: React.ReactNode }) {
     }
 
     try {
-      const chainIdHex = await window.ethereum.request<string>({
+      const chainIdHex = await window.ethereum.request({
         method: 'eth_chainId',
-      });
+      }) as string;
       if (chainIdHex) {
         const chainIdNum = parseInt(chainIdHex, 16);
         setChainId(chainIdNum);
@@ -89,9 +89,9 @@ export function EVMWalletProvider({ children }: { children: React.ReactNode }) {
 
       try {
         await checkChainId();
-        const accounts = await window.ethereum.request<Address[]>({
+        const accounts = await window.ethereum.request({
           method: 'eth_accounts',
-        });
+        }) as Address[];
         if (accounts && accounts.length > 0) {
           setAddress(accounts[0]);
           setIsConnected(true);
@@ -158,9 +158,9 @@ export function EVMWalletProvider({ children }: { children: React.ReactNode }) {
 
     try {
       // Request account access
-      const accounts = await window.ethereum.request<Address[]>({
+      const accounts = await window.ethereum.request({
         method: 'eth_requestAccounts',
-      });
+      }) as Address[];
 
       if (accounts && accounts.length > 0) {
         await checkChainId();
@@ -219,11 +219,7 @@ export function EVMWalletProvider({ children }: { children: React.ReactNode }) {
 // Extend Window interface for TypeScript
 declare global {
   interface Window {
-    ethereum?: {
-      request: (args: { method: string; params?: unknown[] }) => Promise<unknown>;
-      on: (event: string, callback: (args: unknown) => void) => void;
-      removeListener: (event: string, callback: (args: unknown) => void) => void;
-    };
+    ethereum?: any;
   }
 }
 

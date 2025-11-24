@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import * as React from "react"
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { CONTACT_URL } from "@/lib/links";
@@ -40,7 +41,7 @@ export default function PaymentHero() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
             <Button size="lg" className="text-base px-8 py-3 h-auto" onClick={goAuth}>
               GET STARTED
-              <ArrowRight className="ml-2 w-4 h-4" />
+              {React.createElement(ArrowRight as any, { className: "ml-2 w-4 h-4" }) as any}
             </Button>
             <Button variant="outline" size="lg" className="text-base px-8 py-3 h-auto" asChild>
               <Link href={CONTACT_URL}>Contact us</Link>
@@ -50,15 +51,15 @@ export default function PaymentHero() {
           {/* Features List */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
             <div className="flex items-center justify-center gap-2 p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-white/10">
-              <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+              {React.createElement(CheckCircle as any, { className: "w-5 h-5 text-green-500 flex-shrink-0" }) as any}
               <span className="text-sm">Zero gas fees (x402)</span>
             </div>
             <div className="flex items-center justify-center gap-2 p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-white/10">
-              <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+              {React.createElement(CheckCircle as any, { className: "w-5 h-5 text-green-500 flex-shrink-0" }) as any}
               <span className="text-sm">FHE confidential payments</span>
             </div>
             <div className="flex items-center justify-center gap-2 p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-white/10">
-              <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+              {React.createElement(CheckCircle as any, { className: "w-5 h-5 text-green-500 flex-shrink-0" }) as any}
               <span className="text-sm">Instant EVM settlement</span>
             </div>
           </div>

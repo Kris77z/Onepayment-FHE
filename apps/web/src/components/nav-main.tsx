@@ -1,5 +1,6 @@
 "use client"
 
+import * as React from "react"
 import { type Icon } from "@tabler/icons-react"
 
 import {
@@ -11,7 +12,7 @@ import {
 } from "@/components/ui/sidebar"
 import Link from "next/link"
 
-type PageType = 'overview' | 'trade' | 'history' | 'settings';
+type PageType = 'overview' | 'payment' | 'trade' | 'history' | 'settings';
 
 export function NavMain({
   items,
@@ -34,7 +35,7 @@ export function NavMain({
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton asChild tooltip={item.title} isActive={item.isActive}>
                 <Link href={item.url}>
-                  {item.icon && <item.icon />}
+                  {item.icon && React.createElement(item.icon as any) as any}
                   <span>{item.title}</span>
                 </Link>
               </SidebarMenuButton>

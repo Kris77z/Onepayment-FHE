@@ -29,7 +29,7 @@ export function BalanceDisplay() {
 
     setIsLoading(true);
     try {
-      const client = publicClient || createFHEVMPublicClient();
+      const client = (publicClient || createFHEVMPublicClient()) as any;
       const balanceInfo = await queryAllBalances(address, client);
       setBalance(balanceInfo);
       setLastUpdated(balanceInfo.lastUpdated);

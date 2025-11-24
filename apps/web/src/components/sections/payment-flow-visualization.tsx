@@ -1,6 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import * as React from "react"
 import { Lock, Wallet, Zap, CheckCircle, ArrowRight } from "lucide-react";
 import { useState } from "react";
 
@@ -17,35 +18,35 @@ const flowSteps: FlowStep[] = [
     id: '1',
     title: 'User Selects Payment Mode',
     description: 'User can choose plaintext payment or FHE encrypted payment mode',
-    icon: <Wallet className="w-6 h-6" />,
+    icon: React.createElement(Wallet as any, { className: "w-6 h-6" }) as any,
     status: 'pending'
   },
   {
     id: '2',
     title: 'FHE Encrypt Amount',
     description: 'If encryption mode is selected, use Zama FHEVM to encrypt the payment amount',
-    icon: <Lock className="w-6 h-6" />,
+    icon: React.createElement(Lock as any, { className: "w-6 h-6" }) as any,
     status: 'pending'
   },
   {
     id: '3',
     title: 'x402 Gasless Payment',
     description: 'Initiate Gasless USDC transfer via x402 protocol, Facilitator pays Gas fees',
-    icon: <Zap className="w-6 h-6" />,
+    icon: React.createElement(Zap as any, { className: "w-6 h-6" }) as any,
     status: 'pending'
   },
   {
     id: '4',
     title: 'FHE Store to Contract',
     description: 'Store encrypted amount to FHEPaymentGateway smart contract',
-    icon: <Lock className="w-6 h-6" />,
+    icon: React.createElement(Lock as any, { className: "w-6 h-6" }) as any,
     status: 'pending'
   },
   {
     id: '5',
     title: 'Payment Complete',
     description: 'Receive dual transaction records: x402 transaction hash and FHE storage transaction hash',
-    icon: <CheckCircle className="w-6 h-6" />,
+    icon: React.createElement(CheckCircle as any, { className: "w-6 h-6" }) as any,
     status: 'pending'
   }
 ];
@@ -107,7 +108,7 @@ export default function PaymentFlowVisualization() {
                             ${status === 'pending' ? 'bg-muted text-muted-foreground' : ''}
                           `}>
                             {status === 'completed' ? (
-                              <CheckCircle className="w-6 h-6" />
+                              React.createElement(CheckCircle as any, { className: "w-6 h-6" }) as any
                             ) : (
                               step.icon
                             )}
@@ -138,7 +139,7 @@ export default function PaymentFlowVisualization() {
                     {/* Arrow - Mobile */}
                     {index < flowSteps.length - 1 && (
                       <div className="lg:hidden my-4">
-                        <ArrowRight className="w-5 h-5 text-muted-foreground" />
+                        {React.createElement(ArrowRight as any, { className: "w-5 h-5 text-muted-foreground" }) as any}
                       </div>
                     )}
                   </div>

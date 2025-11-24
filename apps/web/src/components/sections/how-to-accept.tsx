@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import * as React from "react"
 import { UserPlus, Store, Key, ArrowRight } from "lucide-react";
 
 const goAuth = () => {
@@ -12,7 +13,7 @@ const goAuth = () => {
 
 const steps = [
   {
-    icon: <UserPlus className="w-8 h-8" />,
+    icon: React.createElement(UserPlus as any, { className: "w-8 h-8" }) as any,
     title: "Start your journey",
     description: "Join OnePay by signing up with a non-custodial wallet, phone number, or email to start accepting payments.",
     detail: "Support multiple registration methods: Tonkeeper, Google, Telegram, Apple, Phone/Email, Facebook",
@@ -28,14 +29,14 @@ const steps = [
     )
   },
   {
-    icon: <Store className="w-8 h-8" />,
+    icon: React.createElement(Store as any, { className: "w-8 h-8" }) as any,
     title: "Create your first merchant",
     description: "Set up your first merchant account with OnePay to start accepting payments and get a reliable Business Wallet.",
     detail: "Quick merchant configuration to get dedicated payment processing capabilities",
     mockUI: (
       <div className="bg-background/50 rounded-lg p-4 border border-white/10">
         <div className="flex items-center gap-2 mb-3">
-          <Store className="w-4 h-4 text-primary" />
+          {React.createElement(Store as any, { className: "w-4 h-4 text-primary" }) as any}
           <span className="text-sm font-medium">Create merchant</span>
         </div>
         <Button size="sm" className="w-full text-xs" onClick={goAuth}>Create</Button>
@@ -43,7 +44,7 @@ const steps = [
     )
   },
   {
-    icon: <Key className="w-8 h-8" />,
+    icon: React.createElement(Key as any, { className: "w-8 h-8" }) as any,
     title: "Generate API keys",
     description: "In your merchant account, generate API keys and integrate OnePay using API, SDK tools, and ready-made plugins.",
     detail: "Get Payment API key and Payout API key to start technical integration",
@@ -84,9 +85,9 @@ export default function HowToAccept() {
             <div className="hidden lg:block absolute top-20 left-1/2 transform -translate-x-1/2 w-full max-w-4xl">
               <div className="flex justify-between items-center">
                 <div className="w-1/3"></div>
-                <ArrowRight className="w-6 h-6 text-muted-foreground" />
+                {React.createElement(ArrowRight as any, { className: "w-6 h-6 text-muted-foreground" }) as any}
                 <div className="w-1/3"></div>
-                <ArrowRight className="w-6 h-6 text-muted-foreground" />
+                {React.createElement(ArrowRight as any, { className: "w-6 h-6 text-muted-foreground" }) as any}
                 <div className="w-1/3"></div>
               </div>
             </div>
@@ -130,7 +131,7 @@ export default function HowToAccept() {
           <div className="text-center mt-12">
             <Button size="lg" className="text-base px-8 py-3 h-auto" onClick={goAuth}>
               GET STARTED
-              <ArrowRight className="ml-2 w-4 h-4" />
+              {React.createElement(ArrowRight as any, { className: "ml-2 w-4 h-4" }) as any}
             </Button>
           </div>
         </div>

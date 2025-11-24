@@ -90,7 +90,7 @@ export function TransactionHistory() {
         </div>
       </CardHeader>
       <CardContent>
-        <Tabs value={filter} onValueChange={(v) => setFilter(v as typeof filter)}>
+        <Tabs value={filter} onValueChange={(v: any) => setFilter(v as typeof filter)}>
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="all">全部</TabsTrigger>
             <TabsTrigger value="payment">普通</TabsTrigger>

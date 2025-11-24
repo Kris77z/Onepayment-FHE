@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react"
 import { Lock } from "lucide-react";
 
 const cryptocurrencies = [
@@ -54,7 +55,7 @@ export default function SupportedAssets() {
               Support major cryptocurrencies for seamless payments
             </p>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 border border-primary/20">
-              <Lock className="w-5 h-5 text-primary" />
+              {React.createElement(Lock as any, { className: "w-5 h-5 text-primary" }) as any}
               <span className="text-sm font-medium text-primary">
                 Powered by FHE (Fully Homomorphic Encryption) for confidential payments
               </span>

@@ -87,17 +87,10 @@ export default function PayPage() {
     try {
       const ciphertext = await encryptAmount(amountNum);
       setFheCiphertext(ciphertext);
-      toast({
-        title: '金额已加密',
-        description: '使用 FHE 加密保护支付金额隐私',
-      });
+      toast.success('金额已加密', '使用 FHE 加密保护支付金额隐私');
     } catch (error) {
       if (error instanceof FHEError) {
-        toast({
-          title: '加密失败',
-          description: error.message,
-          variant: 'destructive',
-        });
+        toast.error('加密失败', error.message);
       }
     }
   }
@@ -129,11 +122,7 @@ export default function PayPage() {
             setFheCiphertext(ciphertext);
           }
         } catch (error) {
-          toast({
-            title: '加密失败',
-            description: error instanceof FHEError ? error.message : '无法加密金额',
-            variant: 'destructive',
-          });
+          toast.error('加密失败', error instanceof FHEError ? error.message : '无法加密金额');
           return;
         }
       } else if (useFHE && fheCiphertext) {
@@ -149,11 +138,7 @@ export default function PayPage() {
       };
       await sessionMutation.mutateAsync(payload);
     } catch (error) {
-      toast({
-        title: '创建失败',
-        description: error instanceof Error ? error.message : '无法创建支付会话',
-        variant: 'destructive',
-      });
+      toast.error('创建失败', error instanceof Error ? error.message : '无法创建支付会话');
     }
   }
 
@@ -228,7 +213,7 @@ export default function PayPage() {
                 <Switch
                   id="use-fhe"
                   checked={useFHE}
-                  onCheckedChange={(checked) => {
+                  onCheckedChange={(checked: boolean) => {
                     setUseFHE(checked);
                     setFheCiphertext(null);
                     if (checked) {

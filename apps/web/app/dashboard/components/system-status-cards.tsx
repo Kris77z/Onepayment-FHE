@@ -3,6 +3,14 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle, XCircle, Clock, Wifi, Server, Lock } from "lucide-react";
+
+// Type workaround for React version conflicts
+const CheckCircleComp = CheckCircle as any;
+const XCircleComp = XCircle as any;
+const ClockComp = Clock as any;
+const WifiComp = Wifi as any;
+const ServerComp = Server as any;
+const LockComp = Lock as any;
 import { useEffect, useState } from "react";
 import { useEVMWallet } from "@/lib/evm-wallet-provider";
 import { getX402Config } from "@/lib/config";
@@ -158,7 +166,7 @@ export function SystemStatusCards() {
       network: {
         status: networkStatus,
         name: networkName,
-        chainId,
+        chainId: chainId ?? undefined,
       },
     }));
   }, [isConnected, chainId, isCorrectNetwork]);
@@ -167,16 +175,16 @@ export function SystemStatusCards() {
     switch (status) {
       case 'online':
       case 'connected':
-        return <CheckCircle className="w-4 h-4 text-green-500" />;
+        return <CheckCircleComp className="w-4 h-4 text-green-500" />;
       case 'offline':
       case 'disconnected':
-        return <XCircle className="w-4 h-4 text-red-500" />;
+        return <XCircleComp className="w-4 h-4 text-red-500" />;
       case 'checking':
-        return <Clock className="w-4 h-4 text-yellow-500 animate-pulse" />;
+        return <ClockComp className="w-4 h-4 text-yellow-500 animate-pulse" />;
       case 'wrong':
-        return <XCircle className="w-4 h-4 text-yellow-500" />;
+        return <XCircleComp className="w-4 h-4 text-yellow-500" />;
       default:
-        return <Clock className="w-4 h-4 text-gray-500" />;
+        return <ClockComp className="w-4 h-4 text-gray-500" />;
     }
   };
 
@@ -202,7 +210,7 @@ export function SystemStatusCards() {
       <Card className="@container/card">
         <CardHeader>
           <CardDescription className="flex items-center gap-2">
-            <Server className="w-4 h-4" />
+            <ServerComp className="w-4 h-4" />
             Facilitator
           </CardDescription>
           <CardTitle className="text-lg font-semibold">
@@ -230,7 +238,7 @@ export function SystemStatusCards() {
       <Card className="@container/card">
         <CardHeader>
           <CardDescription className="flex items-center gap-2">
-            <Wifi className="w-4 h-4" />
+            <WifiComp className="w-4 h-4" />
             Network
           </CardDescription>
           <CardTitle className="text-lg font-semibold">
@@ -258,7 +266,7 @@ export function SystemStatusCards() {
       <Card className="@container/card">
         <CardHeader>
           <CardDescription className="flex items-center gap-2">
-            <Lock className="w-4 h-4" />
+            <LockComp className="w-4 h-4" />
             FHE Service
           </CardDescription>
           <CardTitle className="text-lg font-semibold">

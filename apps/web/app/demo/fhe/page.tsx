@@ -32,20 +32,14 @@ export default function FHEDemoPage() {
     try {
       const healthy = await checkFHEHealth();
       setIsHealthy(healthy);
-      toast({
-        title: healthy ? 'FHE 服务正常' : 'FHE 服务不可用',
-        description: healthy
-          ? 'FHE 服务运行正常，可以进行加密/解密操作'
-          : '请确保 FHE 服务正在运行（http://localhost:8001）',
-        variant: healthy ? 'default' : 'destructive',
-      });
+      if (healthy) {
+        toast.success('FHE 服务正常', 'FHE 服务运行正常，可以进行加密/解密操作');
+      } else {
+        toast.error('FHE 服务不可用', '请确保 FHE 服务正在运行（http://localhost:8001）');
+      }
     } catch (error) {
       setIsHealthy(false);
-      toast({
-        title: '健康检查失败',
-        description: error instanceof Error ? error.message : '未知错误',
-        variant: 'destructive',
-      });
+      toast.error('健康检查失败', error instanceof Error ? error.message : '未知错误');
     } finally {
       setIsHealthChecking(false);
     }
@@ -56,11 +50,7 @@ export default function FHEDemoPage() {
     const validation = validateAmount(amountNum);
 
     if (!validation.isValid) {
-      toast({
-        title: '验证失败',
-        description: validation.error || '金额格式不正确',
-        variant: 'destructive',
-      });
+      toast.error('验证失败', validation.error || '金额格式不正确');
       return;
     }
 
@@ -71,23 +61,12 @@ export default function FHEDemoPage() {
     try {
       const encrypted = await encryptAmount(amountNum);
       setCiphertext(encrypted);
-      toast({
-        title: '加密成功',
-        description: `金额 ${formatAmount(amountNum)} 已加密`,
-      });
+      toast.success('加密成功', `金额 ${formatAmount(amountNum)} 已加密`);
     } catch (error) {
       if (error instanceof FHEError) {
-        toast({
-          title: '加密失败',
-          description: error.message,
-          variant: 'destructive',
-        });
+        toast.error('加密失败', error.message);
       } else {
-        toast({
-          title: '加密失败',
-          description: error instanceof Error ? error.message : '未知错误',
-          variant: 'destructive',
-        });
+        toast.error('加密失败', error instanceof Error ? error.message : '未知错误');
       }
     } finally {
       setIsEncrypting(false);
@@ -96,11 +75,7 @@ export default function FHEDemoPage() {
 
   const handleDecrypt = async () => {
     if (!ciphertext) {
-      toast({
-        title: '没有密文',
-        description: '请先加密一个金额',
-        variant: 'destructive',
-      });
+      toast.error('没有密文', '请先加密一个金额');
       return;
     }
 
@@ -110,23 +85,12 @@ export default function FHEDemoPage() {
     try {
       const decrypted = await decryptAmount(ciphertext);
       setDecryptedAmount(decrypted);
-      toast({
-        title: '解密成功',
-        description: `解密金额: ${formatAmount(decrypted)}`,
-      });
+      toast.success('解密成功', `解密金额: ${formatAmount(decrypted)}`);
     } catch (error) {
       if (error instanceof FHEError) {
-        toast({
-          title: '解密失败',
-          description: error.message,
-          variant: 'destructive',
-        });
+        toast.error('解密失败', error.message);
       } else {
-        toast({
-          title: '解密失败',
-          description: error instanceof Error ? error.message : '未知错误',
-          variant: 'destructive',
-        });
+        toast.error('解密失败', error instanceof Error ? error.message : '未知错误');
       }
     } finally {
       setIsDecrypting(false);

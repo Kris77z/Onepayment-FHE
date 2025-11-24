@@ -44,20 +44,14 @@ export default function FHEVMDemoPage() {
     try {
       const healthy = await checkFHEVMHealth();
       setIsHealthy(healthy);
-      toast({
-        title: healthy ? 'FHEVM 服务正常' : 'FHEVM 服务不可用',
-        description: healthy
-          ? 'FHEVM Relayer SDK 运行正常，可以进行加密/解密操作'
-          : '请确保 FHEVM Relayer SDK 已正确配置',
-        variant: healthy ? 'default' : 'destructive',
-      });
+      if (healthy) {
+        toast.success('FHEVM 服务正常', 'FHEVM Relayer SDK 运行正常，可以进行加密/解密操作');
+      } else {
+        toast.error('FHEVM 服务不可用', '请确保 FHEVM Relayer SDK 已正确配置');
+      }
     } catch (error) {
       setIsHealthy(false);
-      toast({
-        title: '健康检查失败',
-        description: error instanceof Error ? error.message : '未知错误',
-        variant: 'destructive',
-      });
+      toast.error('健康检查失败', error instanceof Error ? error.message : '未知错误');
     } finally {
       setIsHealthChecking(false);
     }
@@ -68,20 +62,12 @@ export default function FHEVMDemoPage() {
     const validation = validateAmount(amountNum);
 
     if (!validation.isValid) {
-      toast({
-        title: '验证失败',
-        description: validation.error || '金额格式不正确',
-        variant: 'destructive',
-      });
+      toast.error('验证失败', validation.error || '金额格式不正确');
       return;
     }
 
     if (!address) {
-      toast({
-        title: '钱包未连接',
-        description: '请先连接钱包',
-        variant: 'destructive',
-      });
+      toast.error('钱包未连接', '请先连接钱包');
       return;
     }
 
@@ -92,23 +78,12 @@ export default function FHEVMDemoPage() {
     try {
       const encrypted = await encryptAmountFHEVM(amountNum, contractAddress, address);
       setEncryptedValue(encrypted.encryptedValue);
-      toast({
-        title: '加密成功',
-        description: `金额 ${amountNum} 已加密`,
-      });
+      toast.success('加密成功', `金额 ${amountNum} 已加密`);
     } catch (error) {
       if (error instanceof FHEVMError) {
-        toast({
-          title: '加密失败',
-          description: error.message,
-          variant: 'destructive',
-        });
+        toast.error('加密失败', error.message);
       } else {
-        toast({
-          title: '加密失败',
-          description: error instanceof Error ? error.message : '未知错误',
-          variant: 'destructive',
-        });
+        toast.error('加密失败', error instanceof Error ? error.message : '未知错误');
       }
     } finally {
       setIsEncrypting(false);
@@ -117,11 +92,7 @@ export default function FHEVMDemoPage() {
 
   const handleDecrypt = async () => {
     if (!encryptedValue) {
-      toast({
-        title: '没有密文',
-        description: '请先加密一个金额',
-        variant: 'destructive',
-      });
+      toast.error('没有密文', '请先加密一个金额');
       return;
     }
 
@@ -131,23 +102,12 @@ export default function FHEVMDemoPage() {
     try {
       const decrypted = await decryptAmountFHEVM(encryptedValue, contractAddress);
       setDecryptedAmount(decrypted);
-      toast({
-        title: '解密成功',
-        description: `解密金额: ${decrypted}`,
-      });
+      toast.success('解密成功', `解密金额: ${decrypted}`);
     } catch (error) {
       if (error instanceof FHEVMError) {
-        toast({
-          title: '解密失败',
-          description: error.message,
-          variant: 'destructive',
-        });
+        toast.error('解密失败', error.message);
       } else {
-        toast({
-          title: '解密失败',
-          description: error instanceof Error ? error.message : '未知错误',
-          variant: 'destructive',
-        });
+        toast.error('解密失败', error instanceof Error ? error.message : '未知错误');
       }
     } finally {
       setIsDecrypting(false);
@@ -156,20 +116,12 @@ export default function FHEVMDemoPage() {
 
   const handleAddPayment = async () => {
     if (!isConnected || !address) {
-      toast({
-        title: '钱包未连接',
-        description: '请先连接钱包',
-        variant: 'destructive',
-      });
+      toast.error('钱包未连接', '请先连接钱包');
       return;
     }
 
     if (!encryptedValue) {
-      toast({
-        title: '没有加密金额',
-        description: '请先加密一个金额',
-        variant: 'destructive',
-      });
+      toast.error('没有加密金额', '请先加密一个金额');
       return;
     }
 
@@ -179,19 +131,12 @@ export default function FHEVMDemoPage() {
       const client = createFHEVMWalletClient(address);
       const txHash = await addPayment(client, address, encryptedValue as `0x${string}`);
       
-      toast({
-        title: '支付成功',
-        description: `交易哈希: ${txHash.slice(0, 10)}...`,
-      });
+      toast.success('支付成功', `交易哈希: ${txHash.slice(0, 10)}...`);
 
       // Refresh balance
       await handleGetBalance();
     } catch (error) {
-      toast({
-        title: '支付失败',
-        description: error instanceof Error ? error.message : '未知错误',
-        variant: 'destructive',
-      });
+      toast.error('支付失败', error instanceof Error ? error.message : '未知错误');
     } finally {
       setIsAddingPayment(false);
     }
@@ -199,11 +144,7 @@ export default function FHEVMDemoPage() {
 
   const handleGetBalance = async () => {
     if (!address) {
-      toast({
-        title: '钱包未连接',
-        description: '请先连接钱包',
-        variant: 'destructive',
-      });
+      toast.error('钱包未连接', '请先连接钱包');
       return;
     }
 
@@ -212,16 +153,9 @@ export default function FHEVMDemoPage() {
     try {
       const balance = await getEncryptedBalance(address);
       setContractBalance(balance);
-      toast({
-        title: '余额获取成功',
-        description: '已获取加密余额',
-      });
+      toast.success('余额获取成功', '已获取加密余额');
     } catch (error) {
-      toast({
-        title: '获取余额失败',
-        description: error instanceof Error ? error.message : '未知错误',
-        variant: 'destructive',
-      });
+      toast.error('获取余额失败', error instanceof Error ? error.message : '未知错误');
     } finally {
       setIsGettingBalance(false);
     }
