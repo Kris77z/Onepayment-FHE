@@ -12,6 +12,8 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
   },
+  // 禁用静态导出，避免预渲染错误页面的问题
+  output: 'standalone',
   webpack: (config) => {
     // 忽略 pino 的可选依赖，避免构建环境缺失 'pino-pretty' 报错
     config.resolve = config.resolve || { alias: {} };
