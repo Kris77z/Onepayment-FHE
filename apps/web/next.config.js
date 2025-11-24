@@ -12,12 +12,12 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
   },
-  // 禁用静态导出，避免预渲染错误页面的问题
-  output: 'standalone',
   // 跳过静态页面生成中的错误页面
   generateBuildId: async () => {
     return 'build-' + Date.now();
   },
+  // 禁用静态导出，使用服务器端渲染
+  output: 'standalone',
   webpack: (config) => {
     // 忽略 pino 的可选依赖，避免构建环境缺失 'pino-pretty' 报错
     config.resolve = config.resolve || { alias: {} };
@@ -28,6 +28,11 @@ const nextConfig = {
       'supports-color': false,
     };
     return config;
+  },
+  // 在构建时跳过错误页面的预渲染
+  onDemandEntries: {
+    maxInactiveAge: 25 * 1000,
+    pagesBufferLength: 2,
   },
 };
 
