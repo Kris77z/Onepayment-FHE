@@ -1,11 +1,13 @@
 #!/bin/bash
+
+# 运行构建并捕获输出和退出码
+set +e
+next build 2>&1 | tee /tmp/build.log
+BUILD_EXIT=${PIPESTATUS[0]}
 set -e
 
-# 运行构建并捕获输出
-next build 2>&1 | tee /tmp/build.log || BUILD_EXIT=$?
-
 # 检查退出码
-if [ ${BUILD_EXIT:-0} -ne 0 ]; then
+if [ $BUILD_EXIT -ne 0 ]; then
   # 检查是否是预渲染错误页面的问题
   if grep -q "Export encountered errors" /tmp/build.log && \
      grep -q "/404\|/500" /tmp/build.log && \
