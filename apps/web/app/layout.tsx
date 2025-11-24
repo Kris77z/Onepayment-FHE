@@ -3,8 +3,6 @@
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Toaster, { ToasterRef } from "@/components/ui/toast";
-import { SolanaWalletProvider } from "@/lib/wallet-provider";
-import { AppProviders } from "./providers";
 import { useRef, useEffect } from "react";
 
 const inter = Inter({
@@ -53,12 +51,8 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
       >
-        <AppProviders>
-          <SolanaWalletProvider>
-            {children}
-            <Toaster ref={toasterRef} defaultPosition="top-right" />
-          </SolanaWalletProvider>
-        </AppProviders>
+        {children}
+        <Toaster ref={toasterRef} defaultPosition="top-right" />
       </body>
     </html>
   );
