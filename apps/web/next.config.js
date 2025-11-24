@@ -14,6 +14,10 @@ const nextConfig = {
   },
   // 禁用静态导出，避免预渲染错误页面的问题
   output: 'standalone',
+  // 跳过静态页面生成中的错误页面
+  generateBuildId: async () => {
+    return 'build-' + Date.now();
+  },
   webpack: (config) => {
     // 忽略 pino 的可选依赖，避免构建环境缺失 'pino-pretty' 报错
     config.resolve = config.resolve || { alias: {} };
