@@ -1,8 +1,5 @@
 'use client';
 
-import { useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-
 export default function Error({
   error,
   reset,
@@ -10,19 +7,23 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  useEffect(() => {
-    console.error(error);
-  }, [error]);
-
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold">500</h1>
-      <p className="mt-4 text-muted-foreground">发生了错误</p>
-      <div className="mt-8 flex gap-4">
-        <Button onClick={reset}>重试</Button>
-        <Button variant="outline" onClick={() => window.location.href = '/'}>
+    <div style={{ display: 'flex', minHeight: '100vh', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontFamily: 'system-ui, -apple-system, sans-serif', backgroundColor: '#000', color: '#fff' }}>
+      <h1 style={{ fontSize: '4rem', margin: 0, fontWeight: 'bold' }}>500</h1>
+      <p style={{ marginTop: '1rem', color: '#888' }}>发生了错误</p>
+      <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem' }}>
+        <button
+          onClick={reset}
+          style={{ padding: '0.75rem 1.5rem', backgroundColor: '#fff', color: '#000', border: 'none', borderRadius: '0.5rem', fontWeight: '500', cursor: 'pointer' }}
+        >
+          重试
+        </button>
+        <button
+          onClick={() => window.location.href = '/'}
+          style={{ padding: '0.75rem 1.5rem', backgroundColor: 'transparent', color: '#fff', border: '1px solid #fff', borderRadius: '0.5rem', fontWeight: '500', cursor: 'pointer' }}
+        >
           返回首页
-        </Button>
+        </button>
       </div>
     </div>
   );

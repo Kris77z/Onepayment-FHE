@@ -1,16 +1,11 @@
-'use client';
-
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-
 export default function NotFound() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold">404</h1>
-      <p className="mt-4 text-muted-foreground">页面未找到</p>
-      <Link href="/">
-        <Button className="mt-8">返回首页</Button>
-      </Link>
+    <div style={{ display: 'flex', minHeight: '100vh', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontFamily: 'system-ui, -apple-system, sans-serif', backgroundColor: '#000', color: '#fff' }}>
+      <h1 style={{ fontSize: '4rem', margin: 0, fontWeight: 'bold' }}>404</h1>
+      <p style={{ marginTop: '1rem', color: '#888' }}>页面未找到</p>
+      <a href="/" style={{ display: 'inline-block', marginTop: '2rem', padding: '0.75rem 1.5rem', backgroundColor: '#fff', color: '#000', textDecoration: 'none', borderRadius: '0.5rem', fontWeight: '500' }}>
+        返回首页
+      </a>
     </div>
   );
 }
