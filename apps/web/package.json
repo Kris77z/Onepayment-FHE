@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build 2>&1 | tee /tmp/build.log; EXIT_CODE=${PIPESTATUS[0]}; if [ $EXIT_CODE -ne 0 ]; then if grep -q 'Export encountered errors' /tmp/build.log && grep -q '/404\\|/500' /tmp/build.log && ! grep -q 'Failed to compile' /tmp/build.log; then echo 'Build completed with non-critical prerender warnings'; exit 0; else exit $EXIT_CODE; fi; else exit 0; fi",
+    "build": "bash scripts/build.sh",
     "build:strict": "next build",
     "start": "next start",
     "lint": "next lint"
